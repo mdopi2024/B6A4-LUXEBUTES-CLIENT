@@ -2,7 +2,7 @@ import { Routes } from "@/types";
 
 export const providerRoutes:Routes[] = [
     {
-        title:"this is provider Routes",
+        title:"Provider Dashboard",
         items:[
            {
              title:"Create Category",

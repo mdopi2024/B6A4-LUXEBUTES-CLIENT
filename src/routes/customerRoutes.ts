@@ -4,14 +4,14 @@ import { Routes } from "@/types";
 
 export const customerRoutes:Routes[] = [
     {
-        title:"this is coutermer Routes",
+        title:"My Account",
         items:[
            {
              title:"Profile",
              url:"#"
             },
            {
-             title:"Book List",
+             title:"Booked List",
              url:"#"
             }
         ]

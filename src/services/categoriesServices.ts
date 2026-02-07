@@ -1,0 +1,18 @@
+import { env } from "@/env";
+
+const API_URL = env.API_URL
+
+export const categoriesServices = {
+    createCategory: async (data: { categoryName: string, description: string }) => {
+        const req = await fetch(`${API_URL}/category`, {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+
+        })
+        const res =await req.json()
+        return res
+    }
+}

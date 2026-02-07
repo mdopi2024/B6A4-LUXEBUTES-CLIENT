@@ -14,5 +14,9 @@ export const categoriesServices = {
         })
         const res =await req.json()
         return res
+    },
+    getAllCategory:async()=>{
+        const req = await fetch(`${API_URL}/category`)
+        return req.json()
     }
 }

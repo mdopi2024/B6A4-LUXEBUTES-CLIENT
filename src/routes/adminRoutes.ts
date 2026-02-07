@@ -13,6 +13,10 @@ export const adminRoutes:Routes[] = [
              url:"/admin-dashboard/manageUser"
             },
            {
+             title:"All Categories",
+             url:"/admin-dashboard/all-categories"
+            },
+           {
              title:"Create categories",
              url:"/admin-dashboard/create-categories"
             }

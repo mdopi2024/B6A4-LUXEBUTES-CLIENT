@@ -36,7 +36,7 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
 
           {/* Table Body */}
           <tbody className="text-gray-800">
-            {categories.map((cat, index) => (
+            {categories?.map((cat, index) => (
               <tr
                 key={cat.id}
                 className={

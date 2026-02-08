@@ -2,40 +2,51 @@ import { env } from "@/env";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL
-const cookieStore = cookies()
+
+const cookie = async () => {
+    const cookieStore = await cookies()
+    return  cookieStore.toString()
+}
 
 export const categoriesServices = {
+
     createCategory: async (data: { categoryName: string, description: string }) => {
         const req = await fetch(`${API_URL}/category`, {
             method: 'POST',
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                Cookie:await cookie()
             },
             body: JSON.stringify(data)
 
         })
-        const res =await req.json()
+        const res = await req.json()
         return res
     },
-    getAllCategory:async()=>{
-        const req = await fetch(`${API_URL}/category`,{
-          headers:{
-            Cookie:(await cookieStore).toString()
-          }
+    getAllCategory: async () => {
+        const req = await fetch(`${API_URL}/category`, {
+            headers: {
+                Cookie: await cookie()
+            }
         })
         return req.json()
     },
-    getCategoryById :async(id:string)=>{
-        const req = await fetch(`${API_URL}/category/${id}`)
+    getCategoryById: async (id: string) => {
+        const req = await fetch(`${API_URL}/category/${id}`, {
+            headers: {
+                Cookie: await cookie()
+            }
+        })
         return req.json()
     },
-    updateCategory :async(data:{categoryName:string,description:string},id:string)=>{
-        const req = await fetch(`${API_URL}/category/${id}`,{
-            method:'PATCH',
-            headers:{
-                "content-type":"application/json"
+    updateCategory: async (data: { categoryName: string, description: string }, id: string) => {
+        const req = await fetch(`${API_URL}/category/${id}`, {
+            method: 'PATCH',
+            headers: {
+                "content-type": "application/json",
+                Cookie: await cookie()
             },
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         })
 
         return req.json()

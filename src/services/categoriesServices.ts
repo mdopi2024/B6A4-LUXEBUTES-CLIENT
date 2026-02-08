@@ -22,5 +22,16 @@ export const categoriesServices = {
     getCategoryById :async(id:string)=>{
         const req = await fetch(`${API_URL}/category/${id}`)
         return req.json()
+    },
+    updateCategory :async(data:{categoryName:string,description:string},id:string)=>{
+        const req = await fetch(`${API_URL}/category/${id}`,{
+            method:'PATCH',
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+
+        return req.json()
     }
 }

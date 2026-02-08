@@ -9,3 +9,7 @@ export const createCategory = async (data: { categoryName: string, description: 
    return result
 }
 
+export const updateCategory = async(data:{categoryName:string,description:string}, id:string)=>{
+    const result = await  categoriesServices.updateCategory(data,id)
+    return result
+}

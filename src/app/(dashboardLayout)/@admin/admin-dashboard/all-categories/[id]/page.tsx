@@ -7,7 +7,7 @@ const Page = async ({params}:{params:Promise<{id:string}>}) => {
     
     return (
         <div>
-           <UpdateCategoryCard data={data}></UpdateCategoryCard>
+           <UpdateCategoryCard data={data} ></UpdateCategoryCard>
         </div>
     );
 };

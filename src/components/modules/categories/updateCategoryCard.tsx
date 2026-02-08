@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Field, FieldError, FieldGroup, FieldLabel, } from "@/components/ui/field";
 import { useForm } from "@tanstack/react-form";
-import * as z from 'zod'
 import { Input } from '@/components/ui/input';
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
+import { updateCategory } from "@/actions/category/createCategory";
+import { useRouter } from "next/navigation";
+
 
 interface SingleCategory {
     id:string;
@@ -18,7 +20,8 @@ interface SingleCategory {
 }
 
 const UpdateCategoryCard = ({data}:{data:SingleCategory}) => {
-    const {categoryName, description} = data
+    const {categoryName, description,id} = data
+    const router = useRouter()
     const form = useForm({
         defaultValues: {
             categoryName,
@@ -27,7 +30,13 @@ const UpdateCategoryCard = ({data}:{data:SingleCategory}) => {
         onSubmit: async ({ value }) => {
             const toastId = toast.loading("Updating category...")
             try {
-               console.log(value)
+                const data = await updateCategory(value,id)
+                if(!data.success){
+                  toast.error(data.message || "Failed to update ",{ id: toastId })
+                  return
+                }
+                toast.success(data.message || "Updated category successfully",{ id: toastId })
+                router.push('/admin-dashboard/all-categories')
             } catch (error) {
                 toast.error("Something went wrong. Please try again later.", { id: toastId })
             }

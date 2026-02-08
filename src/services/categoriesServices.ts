@@ -1,6 +1,8 @@
 import { env } from "@/env";
+import { cookies } from "next/headers";
 
 const API_URL = env.API_URL
+const cookieStore = cookies()
 
 export const categoriesServices = {
     createCategory: async (data: { categoryName: string, description: string }) => {
@@ -16,7 +18,11 @@ export const categoriesServices = {
         return res
     },
     getAllCategory:async()=>{
-        const req = await fetch(`${API_URL}/category`)
+        const req = await fetch(`${API_URL}/category`,{
+          headers:{
+            Cookie:(await cookieStore).toString()
+          }
+        })
         return req.json()
     },
     getCategoryById :async(id:string)=>{

@@ -8,3 +8,4 @@ export const createCategory = async (data: { categoryName: string, description: 
     const result  = await categoriesServices.createCategory(data)
    return result
 }
+

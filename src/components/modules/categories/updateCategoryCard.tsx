@@ -9,18 +9,25 @@ import { Input } from '@/components/ui/input';
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 
+interface SingleCategory {
+    id:string;
+    categoryName:string;
+    description:string;
+    createdAt: string;
+    updatedAt:string;
+}
 
-
-const UpdateCategoryCard = () => {
+const UpdateCategoryCard = ({data}:{data:SingleCategory}) => {
+    const {categoryName, description} = data
     const form = useForm({
         defaultValues: {
-            categoryName: '',
-            description: ''
+            categoryName,
+            description
         },
         onSubmit: async ({ value }) => {
             const toastId = toast.loading("Updating category...")
             try {
-
+               console.log(value)
             } catch (error) {
                 toast.error("Something went wrong. Please try again later.", { id: toastId })
             }

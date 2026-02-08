@@ -1,10 +1,8 @@
 import CategoryTable from '@/components/modules/categories/categoryTable';
 import { categoriesServices } from '@/services/categoriesServices';
-import React from 'react';
 
 const AllCategroies =async () => {
     const {data} =await categoriesServices.getAllCategory()
-    console.log(data)
     return (
         <div>
             <CategoryTable categories={data}></CategoryTable>

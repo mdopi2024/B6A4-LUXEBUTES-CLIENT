@@ -3,6 +3,7 @@
 import React from "react";
 import { Pencil, Trash2 } from "lucide-react";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import Link from "next/link";
 
 interface Category {
   id: string;
@@ -53,6 +54,7 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
                 {/* Action Buttons with Visible Tooltips */}
                 <td className="px-4 py-2 flex justify-center gap-2">
                   {/* Edit Button */}
+                 <Link href={`/admin-dashboard/all-categories/${cat?.id}`}>
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
                       <div className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">
@@ -68,6 +70,7 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
                   </Tooltip.Root>
+                 </Link>
 
                   {/* Delete Button */}
                   <Tooltip.Root delayDuration={150}>

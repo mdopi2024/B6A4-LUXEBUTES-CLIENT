@@ -1,7 +1,9 @@
 import { env } from "@/env"
+import { cookie } from "@/utils/cookie"
 import { cookies } from "next/headers"
 
 const AUTH_URL = env.AUTH_URL
+const API_URL =env.API_URL
 export const userServices = {
     getSession: async () => {
         try {
@@ -18,5 +20,13 @@ export const userServices = {
         } catch (error) {
             return error
         }
+    },
+    getAllUser:async()=>{
+        const req = await fetch(`${API_URL}/user`,{
+            headers:{
+                Cookie:await cookie()
+            }
+        })
+         return req.json()
     }
 }

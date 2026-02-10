@@ -1,11 +1,12 @@
 import { env } from "@/env";
+
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL
 
 const cookie = async () => {
     const cookieStore = await cookies()
-    return  cookieStore.toString()
+    return cookieStore.toString()
 }
 
 export const categoriesServices = {
@@ -15,7 +16,7 @@ export const categoriesServices = {
             method: 'POST',
             headers: {
                 "content-type": "application/json",
-                Cookie:await cookie()
+                Cookie: await cookie()
             },
             body: JSON.stringify(data)
 
@@ -27,7 +28,8 @@ export const categoriesServices = {
         const req = await fetch(`${API_URL}/category`, {
             headers: {
                 Cookie: await cookie()
-            }
+            },
+            next: { tags: ["category"] }
         })
         return req.json()
     },
@@ -47,6 +49,17 @@ export const categoriesServices = {
                 Cookie: await cookie()
             },
             body: JSON.stringify(data)
+        })
+
+        return req.json()
+    },
+    deleteCategory: async (id: string) => {
+        const req = await fetch(`${API_URL}/category/${id}`, {
+            method: 'DELETE',
+            headers: {
+                "content-type": "application/json",
+                Cookie: await cookie()
+            },
         })
 
         return req.json()

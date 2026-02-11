@@ -3,6 +3,7 @@
 import React from "react";
 import { Pencil, UserCircle, Trash2 } from "lucide-react";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import Link from "next/link";
 
 export interface UserData {
   id: string;
@@ -65,6 +66,7 @@ const UserTableCard: React.FC<Props> = ({ data }) => {
                 {/* Action Buttons */}
                 <td className="px-4 py-2 flex justify-center gap-2">
                   {/* Update Status */}
+                  <Link href={`/admin-dashboard/manageUser/update-user-status/${user.id}`}>
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
                       <div className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">
@@ -80,8 +82,11 @@ const UserTableCard: React.FC<Props> = ({ data }) => {
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
                   </Tooltip.Root>
+                  
+                  </Link>
 
                   {/* Update Role */}
+              <Link href={`/admin-dashboard/manageUser/update-user-role/${user.id}`}>
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
                       <div className="p-2 rounded-full bg-[#0F766E] hover:bg-teal-700 text-white cursor-pointer transition-colors duration-200">
@@ -97,6 +102,7 @@ const UserTableCard: React.FC<Props> = ({ data }) => {
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
                   </Tooltip.Root>
+              </Link>
 
                   {/* Delete User */}
                   <Tooltip.Root delayDuration={150}>

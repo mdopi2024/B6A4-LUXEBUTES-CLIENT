@@ -101,7 +101,7 @@ const UserTableCard: React.FC<Props> = ({ data }) => {
                   {/* Delete User */}
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
-                      <div className="p-2 rounded-full bg-[#EF4444] hover:bg-[#B91C1C] text-white cursor-pointer transition-colors duration-200">
+                      <div className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">
                         <Trash2 size={16} />
                       </div>
                     </Tooltip.Trigger>

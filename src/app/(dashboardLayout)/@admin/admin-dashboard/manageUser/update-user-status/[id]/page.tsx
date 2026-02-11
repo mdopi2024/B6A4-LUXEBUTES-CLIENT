@@ -5,23 +5,48 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Field, FieldError, FieldGroup, FieldLabel, } from "@/components/ui/field";
 import { useForm } from "@tanstack/react-form";
 import * as z from 'zod'
-import { Input } from '@/components/ui/input';
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getUserById } from "@/actions/user.actions";
+import { use, useEffect, useState } from "react";
+import { userServices } from "@/services/userServices";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  image: string | null;
+  role: 'PROVIDER' | 'ADMIN' | 'USER'; // adjust roles if you have more
+  status: 'ACTIVE' | 'SUSPENDED'; // adjust status if needed
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+}
+
 
 
 const zodForm = z.object({
-    status: z.string().min(1, "this fild is required")
+    status: z.enum(['ACTIVE' , 'SUSPENDED'])
 })
 
 
 
 const UpdateUserStatus = () => {
+    const {id} = useParams();
+    const [user,setUser]= useState<User | null>(null)
+    useEffect(()=>{
+         const userData = async()=>{
+            const data = await getUserById(id as string)
+            setUser(data?.data)
+         }
+         userData()
+    },[id])
+    console.log(user)
     const router = useRouter()
     const form = useForm({
         defaultValues: {
-            status: 'ACTIVE'
+            status: user?.status || "ACTIVE"
         },
         onSubmit: async ({ value }) => {
             const toastId = toast.loading("Updating user status ...")
@@ -61,7 +86,7 @@ const UpdateUserStatus = () => {
                                         <Select
                                             name={field.name}
                                             value={field.state.value}
-                                            onValueChange={field.handleChange}
+                                            onValueChange={(value) => field.handleChange(value as "ACTIVE" | "SUSPENDED")}
                                         >
                                             <SelectTrigger
                                                 id="status-select"

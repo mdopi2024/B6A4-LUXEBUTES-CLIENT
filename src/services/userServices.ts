@@ -28,5 +28,13 @@ export const userServices = {
             }
         })
          return req.json()
+    },
+    getUserById:async(id:string)=>{
+        const req = await fetch(`${API_URL}/user/${id}`,{
+            headers:{
+                Cookie:await cookie()
+            }
+        })
+         return await req.json()
     }
 }

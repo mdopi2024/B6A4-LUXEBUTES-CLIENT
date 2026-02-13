@@ -8,9 +8,8 @@ import * as z from 'zod'
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getUserById, updateUserStatus } from "@/actions/user.actions";
+import { getUserById, updateUserRole, } from "@/actions/user.actions";
 import {  useEffect, useState } from "react";
-import { userServices } from "@/services/userServices";
 
 type User = {
   id: string;
@@ -45,17 +44,16 @@ const UpdateUserRole = () => {
     const router = useRouter()
     const form = useForm({
         defaultValues: {
-            role: user?.role 
+            role: user?.role  || 'CUSTOMER'
         },
         onSubmit: async ({ value }) => {
-            const toastId = toast.loading("Updating user status ...")
+            const toastId = toast.loading("Updating user role ...")
             try {
-                console.log(value)
-                //  const data =
-                //  if(!data.success){
-                //     return toast.error(data?.message || "Faile to update status",{id:toastId})
-                //  }
-                //  toast.success(data?.message || "user status updated successfullly",{id:toastId})
+                 const data = await updateUserRole(user?.id as string,value )
+                 if(!data.success){
+                    return toast.error(data?.message || "Faile to update status",{id:toastId})
+                 }
+                 toast.success(data?.message || "user status updated successfullly",{id:toastId})
                 router.push('/admin-dashboard/manageUser')
             } catch (error) {
                 toast.error("Something went wrong. Please try again later.", { id: toastId })

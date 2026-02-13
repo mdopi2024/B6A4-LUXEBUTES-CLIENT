@@ -18,7 +18,7 @@ type User = {
   email: string;
   emailVerified: boolean;
   image: string | null;
-  role: 'PROVIDER' | 'ADMIN' | 'USER'; 
+  role: 'PROVIDER' | 'ADMIN' | 'CUSTOMER'; 
   status: 'ACTIVE' | 'SUSPENDED'; 
   createdAt: string;
   updatedAt: string; 

@@ -13,3 +13,8 @@ export const updateUserStatus = async(id:string,value:{status:"ACTIVE" | "SUSPEN
     revalidateTag('user','max')
     return  data
 }
+export const updateUserRole = async(id:string,value:{role:'PROVIDER' | 'ADMIN' | 'CUSTOMER'})=>{
+    const data = await userServices.updatUserRole(id,value);
+    revalidateTag('user','max')
+    return  data
+}

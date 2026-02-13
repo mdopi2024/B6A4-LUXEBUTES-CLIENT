@@ -50,5 +50,17 @@ export const userServices = {
         })
 
         return await req.json()
+    },
+    updatUserRole : async(id:string, data:{role:'PROVIDER' | 'ADMIN' | 'CUSTOMER'})=>{
+        const req = await fetch(`${API_URL}/user/role/${id}`,{
+            method:'PATCH', 
+            headers:{
+                'content-type':'application/json',
+                Cookie:await cookie()
+            },
+            body:JSON.stringify(data)
+        })
+
+        return await req.json()
     }
 }

@@ -50,6 +50,7 @@ const UpdateUserRole = () => {
         onSubmit: async ({ value }) => {
             const toastId = toast.loading("Updating user status ...")
             try {
+                console.log(value)
                 //  const data =
                 //  if(!data.success){
                 //     return toast.error(data?.message || "Faile to update status",{id:toastId})
@@ -93,16 +94,16 @@ const UpdateUserRole = () => {
                                             onValueChange={(value) => field.handleChange(value as 'PROVIDER' | 'ADMIN' | 'CUSTOMER')}
                                         >
                                             <SelectTrigger
-                                                id="status-select"
+                                                id="role-select"
                                                 aria-invalid={isInvalid}
                                                 className="max-w-[120px]"
                                             >
-                                                  <SelectValue placeholder="Select status" /> 
+                                                  <SelectValue placeholder="Select role" /> 
                                             </SelectTrigger >
                                             <SelectContent  position="popper" className=" w-full border ">
-                                                <SelectItem className=" px-3 py-2 " value="PROVIDER">ACTIVE</SelectItem>
-                                                <SelectItem className=" px-3 py-2 " value="ADMIN">SUSPENDED</SelectItem>
-                                                <SelectItem className=" px-3 py-2 " value="CUSTOMER">SUSPENDED</SelectItem>
+                                                <SelectItem className=" px-3 py-2 " value="PROVIDER">PROVIDER</SelectItem>
+                                                <SelectItem className=" px-3 py-2 text-black" value="ADMIN">ADMIN</SelectItem>
+                                                <SelectItem className=" px-3 py-2 " value="CUSTOMER">CUSTOMER</SelectItem>
                                             </SelectContent>
                                         </Select>
 

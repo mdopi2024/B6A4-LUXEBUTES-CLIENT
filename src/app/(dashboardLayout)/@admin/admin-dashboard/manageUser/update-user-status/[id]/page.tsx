@@ -8,8 +8,8 @@ import * as z from 'zod'
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getUserById } from "@/actions/user.actions";
-import { use, useEffect, useState } from "react";
+import { getUserById, updateUserStatus } from "@/actions/user.actions";
+import {  useEffect, useState } from "react";
 import { userServices } from "@/services/userServices";
 
 type User = {
@@ -18,10 +18,10 @@ type User = {
   email: string;
   emailVerified: boolean;
   image: string | null;
-  role: 'PROVIDER' | 'ADMIN' | 'USER'; // adjust roles if you have more
-  status: 'ACTIVE' | 'SUSPENDED'; // adjust status if needed
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
+  role: 'PROVIDER' | 'ADMIN' | 'USER'; 
+  status: 'ACTIVE' | 'SUSPENDED'; 
+  createdAt: string;
+  updatedAt: string; 
 }
 
 
@@ -42,7 +42,6 @@ const UpdateUserStatus = () => {
          }
          userData()
     },[id])
-    console.log(user)
     const router = useRouter()
     const form = useForm({
         defaultValues: {
@@ -51,7 +50,12 @@ const UpdateUserStatus = () => {
         onSubmit: async ({ value }) => {
             const toastId = toast.loading("Updating user status ...")
             try {
-                console.log(value)
+                 const data = await updateUserStatus(user?.id as string,value)
+                 if(!data.success){
+                    return toast.error(data?.message || "Faile to update status",{id:toastId})
+                 }
+                 toast.success(data?.message || "user status updated successfullly",{id:toastId})
+                router.push('/admin-dashboard/manageUser')
             } catch (error) {
                 toast.error("Something went wrong. Please try again later.", { id: toastId })
             }

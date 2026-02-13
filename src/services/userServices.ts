@@ -1,5 +1,6 @@
 import { env } from "@/env"
 import { cookie } from "@/utils/cookie"
+import next from "next"
 import { cookies } from "next/headers"
 
 const AUTH_URL = env.AUTH_URL
@@ -25,7 +26,8 @@ export const userServices = {
         const req = await fetch(`${API_URL}/user`,{
             headers:{
                 Cookie:await cookie()
-            }
+            },
+            next:{tags:['user']}
         })
          return req.json()
     },
@@ -36,5 +38,17 @@ export const userServices = {
             }
         })
          return await req.json()
+    },
+    updatUserStatus : async(id:string, data:{status:'ACTIVE' | 'SUSPENDED'})=>{
+        const req = await fetch(`${API_URL}/user/${id}`,{
+            method:'PATCH', 
+            headers:{
+                'content-type':'application/json',
+                Cookie:await cookie()
+            },
+            body:JSON.stringify(data)
+        })
+
+        return await req.json()
     }
 }

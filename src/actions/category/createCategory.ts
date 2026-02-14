@@ -20,3 +20,8 @@ export const deleteCategory = async(id:string)=>{
     revalidateTag('category','max')
     return result
 }
+
+export const getAllCategory = async()=>{
+    const result= await categoriesServices.getAllCategory()
+    return result
+}

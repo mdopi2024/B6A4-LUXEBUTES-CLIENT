@@ -31,7 +31,7 @@ export const categoriesServices = {
             },
             next: { tags: ["category"] }
         })
-        return req.json()
+        return  req.json()
     },
     getCategoryById: async (id: string) => {
         const req = await fetch(`${API_URL}/category/${id}`, {

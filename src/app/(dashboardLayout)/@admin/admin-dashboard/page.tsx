@@ -1,9 +1,14 @@
-import React from 'react';
+import ProfileCard from '@/components/shared/ProfileCard';
+import { userServices } from '@/services/userServices';
 
-const AdminDashboard = () => {
+
+const AdminDashboard = async() => {
+
+    const {user} = await userServices.getSession()
+
     return (
-        <div>
-            i am admin dashboard
+        <div className='border border-blue-700 '>
+          <ProfileCard user={user} ></ProfileCard> 
         </div>
     );
 };

@@ -36,7 +36,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL('/admin-dashboard',request.url))
     }
     if(role==='PROVIDER' && path.startsWith('/dashboard')){
-      return NextResponse.redirect(new URL('/createCategory',request.url))
+      return NextResponse.redirect(new URL('/provider-dashboard/add-menu',request.url))
     }
 
     return NextResponse.next()

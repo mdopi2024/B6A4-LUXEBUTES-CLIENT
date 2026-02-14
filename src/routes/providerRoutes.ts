@@ -5,8 +5,8 @@ export const providerRoutes:Routes[] = [
         title:"Provider Dashboard",
         items:[
            {
-             title:"Create Category",
-             url:"#"
+             title:"Add menus",
+             url:"/provider-dashboard/add-menu"
             }
         ]
     }

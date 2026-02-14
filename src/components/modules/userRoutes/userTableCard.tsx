@@ -4,6 +4,8 @@ import React from "react";
 import { Pencil, UserCircle, Trash2 } from "lucide-react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
+import { toast } from "sonner";
+import { deleteUser } from "@/actions/user.actions";
 
 export interface UserData {
   id: string;
@@ -20,6 +22,14 @@ interface Props {
 }
 
 const UserTableCard: React.FC<Props> = ({ data }) => {
+  const handleDeleteUser = async(id:string)=>{
+    const toastId = toast.loading("Deleting user......");
+    const data = await deleteUser(id);
+    if(!data.success){
+      return toast.error(data.message || "Failed to user, please try againg ",{id:toastId})
+    }
+    toast.success(data.message || "User deleted successfully",{id:toastId});
+  }
   return (
     <Tooltip.Provider>
       <div className="overflow-x-auto w-full rounded-lg border border-gray-300 shadow-sm">
@@ -105,8 +115,8 @@ const UserTableCard: React.FC<Props> = ({ data }) => {
               </Link>
 
                   {/* Delete User */}
-                  <Tooltip.Root delayDuration={150}>
-                    <Tooltip.Trigger asChild>
+                  <Tooltip.Root   delayDuration={150}>
+                    <Tooltip.Trigger onClick={()=>handleDeleteUser(user?.id)} asChild>
                       <div className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">
                         <Trash2 size={16} />
                       </div>

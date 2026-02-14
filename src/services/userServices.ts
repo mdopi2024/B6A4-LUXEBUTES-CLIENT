@@ -62,5 +62,16 @@ export const userServices = {
         })
 
         return await req.json()
+    },
+    deleteUser : async(id:string)=>{
+          const req = await fetch(`${API_URL}/user/${id}`,{
+            method:'DELETE', 
+            headers:{
+                'content-type':'application/json',
+                Cookie:await cookie()
+            },
+          
+        })
+        return await req.json()
     }
 }

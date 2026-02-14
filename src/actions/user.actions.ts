@@ -18,3 +18,8 @@ export const updateUserRole = async(id:string,value:{role:'PROVIDER' | 'ADMIN' |
     revalidateTag('user','max')
     return  data
 }
+export const deleteUser = async(id:string)=>{
+    const data = await userServices.deleteUser(id);
+    revalidateTag('user','max')
+    return  data
+}

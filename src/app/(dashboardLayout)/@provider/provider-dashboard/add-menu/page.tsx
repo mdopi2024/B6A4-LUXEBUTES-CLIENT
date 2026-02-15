@@ -7,11 +7,11 @@ import { useForm } from "@tanstack/react-form";
 import * as z from 'zod'
 import { Input } from '@/components/ui/input';
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { getAllCategory } from "@/actions/category/createCategory";
+import { createMenu } from "@/actions/menu.action";
 
 interface CategoryType {
     categoryName:string
@@ -41,11 +41,10 @@ const AddMenus
         useEffect(() => {
             const allCategory = async () => {
                 const data = await getAllCategory()
-                setCategory(data?.data)
+                setCategory(data?.data ||[])
             }
             allCategory()
         }, [])
-        const router = useRouter()
         const form = useForm({
             defaultValues: {
                 name: '',
@@ -56,14 +55,18 @@ const AddMenus
 
             },
             onSubmit: async ({ value }) => {
-                const toastId = toast.loading("Logging you in...")
+                const toastId = toast.loading("Adding new menu..")
                 try {
 
-                    console.log(value)
-                    toast.success("New menu has been added", {
+                     const data = await createMenu(value)
+                     if(!data.success){
+                        return toast.error(data.message || 'Failed to add new menu, please try again')
+                     }
+                    toast.success(data.message||"New menu has been added", {
                         id: toastId,
                     });
-                    router.push('/')
+
+                    form.reset()
 
                 } catch (error) {
                     toast.error("Something went wrong. Please try again later.", { id: toastId })

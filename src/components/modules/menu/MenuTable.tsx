@@ -3,6 +3,7 @@
 import React from "react";
 import { Pencil, UserCircle, Trash2 } from "lucide-react";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import Link from "next/link";
 
 export type Meal = {
   id: string;
@@ -58,8 +59,10 @@ const MenuTable: React.FC<Props> = ({ data }) => {
                 <td className="px-4 py-2 text-sm font-semibold text-[#0F766E]">{meal.name}</td>
                 <td className="px-4 py-2 text-sm text-gray-700 italic">{meal.description}</td>
                 <td className="px-4 py-2 text-sm text-gray-700 italic">{meal.category.categoryName}</td>
-                <td className="px-4 py-2 text-sm text-gray-800"> ৳ {meal.price}</td> {/* <-- Changed here */}
-                <td className={`px-4 py-2 text-sm font-medium ${meal.isAvailable ? 'text-green-600' : 'text-red-600'}`}>
+                <td className="px-4 py-2 text-sm text-gray-800"> ৳ {meal.price}</td>
+                <td
+                  className= "px-4 py-2 text-sm font-medium text-[#0F766E]"
+                >
                   {meal.isAvailable ? "Yes" : "No"}
                 </td>
                 <td className="px-4 py-2 text-sm text-gray-600">
@@ -73,8 +76,8 @@ const MenuTable: React.FC<Props> = ({ data }) => {
 
                 {/* Action Buttons */}
                 <td className="px-4 py-2 flex justify-center gap-2">
-
                   {/* Update menu */}
+                 <Link href={`/provider-dashboard/manage-menu/update-menu/${meal.id}`}>
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
                       <div className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">
@@ -90,6 +93,7 @@ const MenuTable: React.FC<Props> = ({ data }) => {
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
                   </Tooltip.Root>
+                 </Link>
 
                   {/* Delete */}
                   <Tooltip.Root delayDuration={150}>

@@ -12,3 +12,7 @@ export const getAllMenu = async()=>{
    const result = await menuServices.getAllMenu()
    return result
 }
+export const getMenuById = async(id:string)=>{
+   const result = await menuServices.getMenuById(id)
+   return result
+}

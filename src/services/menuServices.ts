@@ -36,5 +36,17 @@ export const menuServices = {
 
         return await req.json()
 
+    },
+    getMenuById:async(id:string)=>{
+        const req = await fetch(`${API_URL}/meal/${id}`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                Cookie:await cookie()
+            }
+        })
+
+        return await req.json()
+
     }
 }

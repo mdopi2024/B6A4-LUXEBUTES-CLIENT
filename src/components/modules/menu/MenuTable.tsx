@@ -4,6 +4,8 @@ import React from "react";
 import { Pencil, UserCircle, Trash2 } from "lucide-react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
+import { toast } from 'sonner';
+import { deleteMenu } from "@/actions/menu.action";
 
 export type Meal = {
   id: string;
@@ -25,6 +27,18 @@ interface Props {
 }
 
 const MenuTable: React.FC<Props> = ({ data }) => {
+
+  const handleDeleteMenu = async(id:string)=>{
+    const toastId = toast.loading("Deleting menu.......")
+        try{
+          const data = await deleteMenu(id)
+          if(!data?.success) return toast.error(data?.message|| "Failed to delete menu",{id:toastId})
+          toast.success(data?.message || "Deleted menu successfully",{id:toastId})
+        }catch(error){
+           toast.error("Something went wrong, Please try again",{id:toastId})
+        }
+  }
+
   return (
     <Tooltip.Provider>
       <div className="overflow-x-auto w-full rounded-lg border border-gray-300 shadow-sm">
@@ -98,7 +112,7 @@ const MenuTable: React.FC<Props> = ({ data }) => {
                   {/* Delete */}
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
-                      <div className="p-2 rounded-full bg-[#0F766E] hover:bg-teal-700 text-white cursor-pointer transition-colors duration-200">
+                      <div onClick={()=>handleDeleteMenu(meal?.id)} className="p-2 rounded-full bg-[#0F766E] hover:bg-teal-700 text-white cursor-pointer transition-colors duration-200">
                         <Trash2 size={16} />
                       </div>
                     </Tooltip.Trigger>

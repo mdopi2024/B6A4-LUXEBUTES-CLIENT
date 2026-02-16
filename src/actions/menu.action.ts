@@ -1,6 +1,7 @@
 'use server'
 
 import { menuServices, MenuTypes, UpdatedMenuTypes } from "@/services/menuServices"
+import { revalidateTag } from "next/cache"
 
 
 
@@ -18,5 +19,10 @@ export const getMenuById = async(id:string)=>{
 }
 export const updateMenu = async(id:string,data:UpdatedMenuTypes)=>{
    const result = await menuServices.updateMenu(id,data)
+   return result
+}
+export const deleteMenu = async(id:string)=>{
+   const result = await menuServices.deleteMenu(id)
+   revalidateTag('menu','max')
    return result
 }

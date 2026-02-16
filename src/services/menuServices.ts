@@ -39,7 +39,8 @@ export const menuServices = {
             headers:{
                 'content-type':'application/json',
                 Cookie:await cookie()
-            }
+            },
+            next:{tags:['menu']}
         })
 
         return await req.json()
@@ -65,6 +66,18 @@ export const menuServices = {
                 Cookie:await cookie()
             },
             body:JSON.stringify(data)
+        })
+
+        return await req.json()
+
+    },
+     deleteMenu:async(id:string)=>{
+        const req = await fetch(`${API_URL}/meal/${id}`,{
+            method:'delete',
+            headers:{
+                'content-type':'application/json',
+                Cookie:await cookie()
+            }
         })
 
         return await req.json()

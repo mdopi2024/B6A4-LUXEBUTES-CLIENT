@@ -57,7 +57,9 @@ interface Navbar1Props {
 const Navbar1 = ({
   menu = [
     { title: "Home", url: "/" },
+    { title: "Menu", url: "/menu" },
     { title: "Dashboard", url: "/dashboard" },
+
   ],
   auth = {
     login: { title: "Login", url: "/login" },
@@ -246,9 +248,9 @@ const renderMobileMenuItem = (item: MenuItem) => {
   }
 
   return (
-    <Link 
-      key={item.title} 
-      href={item.url} 
+    <Link
+      key={item.title}
+      href={item.url}
       className="text-base font-semibold text-[#0F766E] hover:text-[#FBBF24] py-2 transition-colors"
     >
       {item.title}

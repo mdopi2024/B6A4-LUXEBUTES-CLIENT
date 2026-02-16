@@ -63,7 +63,7 @@ const MenuTable: React.FC<Props> = ({ data }) => {
                 <td
                   className= "px-4 py-2 text-sm font-medium text-[#0F766E]"
                 >
-                  {meal.isAvailable ? "Yes" : "No"}
+                  {meal.isAvailable ? "Yes" : "Not"}
                 </td>
                 <td className="px-4 py-2 text-sm text-gray-600">
                   {new Date(meal.createdAt).toLocaleDateString()}{" "}

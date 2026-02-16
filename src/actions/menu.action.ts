@@ -1,6 +1,6 @@
 'use server'
 
-import { menuServices, MenuTypes } from "@/services/menuServices"
+import { menuServices, MenuTypes, UpdatedMenuTypes } from "@/services/menuServices"
 
 
 
@@ -14,5 +14,9 @@ export const getAllMenu = async()=>{
 }
 export const getMenuById = async(id:string)=>{
    const result = await menuServices.getMenuById(id)
+   return result
+}
+export const updateMenu = async(id:string,data:UpdatedMenuTypes)=>{
+   const result = await menuServices.updateMenu(id,data)
    return result
 }

@@ -112,7 +112,7 @@ const MenuTable: React.FC<Props> = ({ data }) => {
                   {/* Delete */}
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
-                      <div onClick={()=>handleDeleteMenu(meal?.id)} className="p-2 rounded-full bg-[#0F766E] hover:bg-teal-700 text-white cursor-pointer transition-colors duration-200">
+                      <div onClick={()=>handleDeleteMenu(meal?.id)} className="p-2 rounded-full bg-red-500 hover:bg-red-700 text-white cursor-pointer transition-colors duration-200">
                         <Trash2 size={16} />
                       </div>
                     </Tooltip.Trigger>

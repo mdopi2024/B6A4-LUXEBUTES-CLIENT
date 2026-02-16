@@ -94,7 +94,7 @@ const UpdateUserRole = () => {
                                             <SelectTrigger
                                                 id="role-select"
                                                 aria-invalid={isInvalid}
-                                                className="max-w-[120px]"
+                                                
                                             >
                                                   <SelectValue placeholder="Select role" /> 
                                             </SelectTrigger >

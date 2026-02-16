@@ -85,7 +85,7 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
                   {/* Delete Button */}
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
-                      <div onClick={()=>handleDeleteCategory(cat.id)} className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">
+                      <div onClick={()=>handleDeleteCategory(cat.id)} className="p-2 rounded-full bg-red-500 hover:bg-red-700 text-white cursor-pointer transition-colors duration-200">
                         <Trash2 size={16} />
                       </div>
                     </Tooltip.Trigger>

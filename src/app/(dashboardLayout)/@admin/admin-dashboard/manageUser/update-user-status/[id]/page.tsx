@@ -95,7 +95,7 @@ const UpdateUserStatus = () => {
                                             <SelectTrigger
                                                 id="status-select"
                                                 aria-invalid={isInvalid}
-                                                className="max-w-[120px]"
+                                                
                                             >
                                                   <SelectValue placeholder="Select status" /> 
                                             </SelectTrigger >

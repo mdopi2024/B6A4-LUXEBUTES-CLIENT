@@ -190,7 +190,6 @@ const UpdateMenu
                                                 <SelectTrigger
                                                     id="category-select"
                                                     aria-invalid={isInvalid}
-                                                    className="max-w-[120px]"
                                                 >
                                                     <SelectValue placeholder="Select category" />
                                                 </SelectTrigger >
@@ -223,7 +222,7 @@ const UpdateMenu
                                                 <SelectTrigger
                                                     id="category-select"
                                                     aria-invalid={isInvalid}
-                                                    className="max-w-[120px]"
+                                                    
                                                 >
                                                     <SelectValue placeholder="is Available" />
                                                 </SelectTrigger >

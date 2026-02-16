@@ -168,7 +168,7 @@ const AddMenus
                                                 <SelectTrigger
                                                     id="category-select"
                                                     aria-invalid={isInvalid}
-                                                    className="max-w-[120px]"
+                                                    className="w-full"
                                                 >
                                                     <SelectValue placeholder="Select category" />
                                                 </SelectTrigger >

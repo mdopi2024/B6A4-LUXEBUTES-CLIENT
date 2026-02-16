@@ -21,7 +21,7 @@ export interface MenuType {
 const MenuPage =async () => {
     const {data} = await getAllMenu()
     return (
-        <div className='grid grid-cols-5 gap-3 mx-4'>
+        <div className='grid md:grid-cols-3 lg:grid-cols-5 gap-3 mx-4 mt-6'>
             {
                 data?.map((menu:MenuType)=><MenuCard key={menu?.id}  menu={menu}></MenuCard>)
             }

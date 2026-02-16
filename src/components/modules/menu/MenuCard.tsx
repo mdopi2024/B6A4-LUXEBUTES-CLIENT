@@ -5,17 +5,16 @@ const MenuCard = ({ menu }: { menu: MenuType }) => {
   const { name, description, price, image, isAvailable, category } = menu;
 
   return (
-    <div className="  flex flex-col h-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300">
+    <div className="  flex flex-col h-full bg-teal-50 rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300">
 
       {/* Image */}
       <div className="p-2">
         <div className="relative h-40 w-full overflow-hidden border rounded-md ">
-          {/* <Image
+          <img
           src={image}
           alt={name}
-          fill
           className="object-cover hover:scale-105 transition-transform duration-300"
-        /> */}
+        />
         </div>
       </div>
 
@@ -76,7 +75,7 @@ const MenuCard = ({ menu }: { menu: MenuType }) => {
               color: isAvailable ? "#000" : "#fff",
             }}
           >
-            Add
+             Card
           </button>
 
         </div>

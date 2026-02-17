@@ -1,5 +1,6 @@
 "use client"
 
+import { addToCard } from "@/actions/addToCard.action";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -13,8 +14,15 @@ const MenuCardActions = ({ cardId, userId, isAvailable }: { cardId: string, user
             router.push('/login')
             return
         }
-        const data = {userId,mealId}
-        console.log(data)
+        const cardData = {userId,mealId}
+       
+        const data =await addToCard(cardData);
+
+        if(!data?.success){
+            return toast.error(data?.message || "Failed to add item to cart",{id:toastId})
+        }
+
+        toast.success(data?.message || "Item added to cart successfully",{id:toastId})
     }
     return (
         <div className="flex gap-2 mt-4">

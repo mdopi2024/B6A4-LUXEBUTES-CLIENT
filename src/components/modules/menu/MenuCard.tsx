@@ -1,9 +1,12 @@
+
+
 import { MenuType } from "@/app/(commonLayout)/menu/page";
-import Image from "next/image";
+import { userServices } from "@/services/userServices";
+import MenuCardActions from "./MenuCardActions";
 
-const MenuCard = ({ menu }: { menu: MenuType }) => {
-  const { name, description, price, image, isAvailable, category } = menu;
-
+const MenuCard = async ({ menu }: { menu: MenuType }) => {
+  const { id, name, description, price, image, isAvailable, category } = menu;
+  const session = await userServices.getSession()
   return (
     <div className="  flex flex-col h-full bg-teal-50 rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300">
 
@@ -11,10 +14,10 @@ const MenuCard = ({ menu }: { menu: MenuType }) => {
       <div className="p-2">
         <div className="relative h-40 w-full overflow-hidden border rounded-md ">
           <img
-          src={image}
-          alt={name}
-          className="object-cover hover:scale-105 transition-transform duration-300"
-        />
+            src={image}
+            alt={name}
+            className="object-cover hover:scale-105 transition-transform duration-300"
+          />
         </div>
       </div>
 
@@ -30,7 +33,7 @@ const MenuCard = ({ menu }: { menu: MenuType }) => {
         </span>
 
         {/* Name */}
-        <h3 className="mt-1 text-lg font-bold text-gray-900 line-clamp-1">
+        <h3 className="mt-1 text-lg text-gray-700 font-bold text-gray-00 line-clamp-1">
           {name}
         </h3>
 
@@ -43,13 +46,13 @@ const MenuCard = ({ menu }: { menu: MenuType }) => {
         <div className="flex items-center justify-between mt-3">
 
           <p className="text-md font-semibold" >
-            ৳ {price}
+            <span >৳</span> {price}
           </p>
 
           <span
             className={`px-2 py-0.5 rounded-full text-xs font-semibold ${isAvailable
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-700"
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-700"
               }`}
           >
             {isAvailable ? "Available" : "Out of Stock"}
@@ -57,28 +60,8 @@ const MenuCard = ({ menu }: { menu: MenuType }) => {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-2 mt-4">
+        <MenuCardActions cardId={id} userId={session?.user?.id}  isAvailable={isAvailable}></MenuCardActions>
 
-          {/* View Details */}
-          <button
-            className="flex-1  rounded-md transition border-2 hover:bg-[#0f766d4b] border-[#0F766E]">
-            View
-          </button>
-
-          {/* Add to Cart */}
-          <button
-            disabled={!isAvailable}
-            className={`flex-1 py-1 rounded-md   transition text-white ${isAvailable ? "" : "opacity-50 cursor-not-allowed"
-              }`}
-            style={{
-              backgroundColor: isAvailable ? "#FBBF24" : "#FBBF24",
-              color: isAvailable ? "#000" : "#fff",
-            }}
-          >
-             Card
-          </button>
-
-        </div>
 
       </div>
     </div>

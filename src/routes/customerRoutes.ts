@@ -8,11 +8,11 @@ export const customerRoutes:Routes[] = [
         items:[
            {
              title:"Profile",
-             url:"#"
+             url:"/dashboard"
             },
            {
-             title:"Booked List",
-             url:"#"
+             title:"My Card",
+             url:"/dashboard/my-card"
             }
         ]
     }

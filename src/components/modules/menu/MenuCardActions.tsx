@@ -1,6 +1,7 @@
 "use client"
 
 import { addToCard } from "@/actions/addToCard.action";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -28,10 +29,10 @@ const MenuCardActions = ({ cardId, userId, isAvailable }: { cardId: string, user
         <div className="flex gap-2 mt-4">
 
             {/* View Details */}
-            <button
-                className="flex-1  rounded-md transition border-2 hover:bg-[#0f766d4b] border-[#0F766E]">
+            <Link href={`/menu/menu-details/${cardId}`}
+                className="flex-1  flex justify-center items-center rounded-md transition border-2 hover:bg-[#0f766d4b] border-[#0F766E]">
                 View
-            </button>
+            </Link >
 
             {/* Add to Cart */}
             <button

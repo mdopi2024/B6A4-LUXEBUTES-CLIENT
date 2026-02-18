@@ -1,8 +1,31 @@
 "use client";
 
+import { addToCard } from "@/actions/addToCard.action";
 import { MenuType } from "@/app/(commonLayout)/menu/page";
+import { useRouter } from "next/navigation";
 
-const MenuDetailCard = ({ data }: { data: MenuType }) => {
+import { toast } from "sonner";
+
+const MenuDetailCard = ({ data,userId}: { data: MenuType , userId:string}) => {
+
+  const router = useRouter()
+  const handleAddToCardButton = async (mealId: string) => {
+    const toastId = toast.loading("Adding to cart...")
+    if (!userId) {
+      toast.error("Please login first to add items to cart", { id: toastId })
+      router.push('/login')
+      return
+    }
+    const cardData = {userId, mealId }
+
+    const data = await addToCard(cardData);
+
+    if (!data?.success) {
+      return toast.error(data?.message || "Failed to add item to cart", { id: toastId })
+    }
+
+    toast.success(data?.message || "Item added to cart successfully", { id: toastId })
+  }
 
   return (
     <div className=" mt-6  flex items-center justify-center px-4 py-10">
@@ -51,13 +74,13 @@ const MenuDetailCard = ({ data }: { data: MenuType }) => {
               </h2>
             </div>
 
-            <button
-              className={`px-7 py-3 rounded-lg font-medium shadow-md text-black transition ${
-                data.isAvailable
+            <button 
+              className={`px-7 py-3 rounded-lg font-medium shadow-md text-black transition ${data.isAvailable
                   ? "bg-[#fbbe24d5] hover:bg-[#FBBF24] "
                   : "bg-gray-400 cursor-not-allowed"
-              }`}
+                }`}
               disabled={!data.isAvailable}
+              onClick={()=>handleAddToCardButton(data?.id)}
             >
               Add to Cart
             </button>

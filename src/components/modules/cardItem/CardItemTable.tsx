@@ -79,9 +79,9 @@ const CardItemTable: React.FC<CardItemTableProps> = ({ data }) => {
                             </td>
 
                             {/* Actions */}
-                            <td className="  py-2 flex justify-center gap-2 whitespace-nowrap">
+                            <td className="  py-2 flex justify-center items-center gap-2 whitespace-nowrap">
                                 <Link href={`/dashboard/my-card/order/${item?.id}`}
-                                    className={`${!item.meal.isAvailable ? "pointer-events-none opacity-50" : ""}px-3 py-1 bg-green-600 text-white rounded-md cursor-pointer transition hover:bg-green-700 `}
+                                    className={`${!item.meal.isAvailable ? "pointer-events-none opacity-50  px-3 py-1" : ""}px-3 py-1 bg-green-600 text-white rounded-md cursor-pointer transition hover:bg-green-700 `}
                                 >
                                     Order
                                 </Link>

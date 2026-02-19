@@ -2,6 +2,7 @@
 
 import { deleteCardItem } from '@/actions/addToCard.action';
 import { CartItemType } from '@/app/(dashboardLayout)/@user/dashboard/my-card/page';
+import Link from 'next/link';
 import React from 'react';
 import { toast } from 'sonner';
 
@@ -11,17 +12,17 @@ interface CardItemTableProps {
 
 const CardItemTable: React.FC<CardItemTableProps> = ({ data }) => {
 
-    const handleDeleteCardItem = async(id:string)=>{
-       const toastId = toast.loading("Item is deleting.......");
-       try{
-        const data = await deleteCardItem(id);
-        if(!data.success){
-            return toast.error(data?.message ||'Failed to delete item',{id:toastId})
+    const handleDeleteCardItem = async (id: string) => {
+        const toastId = toast.loading("Item is deleting.......");
+        try {
+            const data = await deleteCardItem(id);
+            if (!data.success) {
+                return toast.error(data?.message || 'Failed to delete item', { id: toastId })
+            }
+            toast.success(data?.message || "Item deleted successfully", { id: toastId })
+        } catch (err: any) {
+            toast.error(err.message || "something went wrong, please try again later", { id: toastId })
         }
-        toast.success(data?.message || "Item deleted successfully",{id:toastId})
-       }catch(err:any){
-        toast.error(err.message ||"something went wrong, please try again later",{id:toastId})
-       }
     }
 
     return (
@@ -79,13 +80,12 @@ const CardItemTable: React.FC<CardItemTableProps> = ({ data }) => {
 
                             {/* Actions */}
                             <td className="  py-2 flex justify-center gap-2 whitespace-nowrap">
-                                <button
-                                    className="px-3 py-1 bg-yellow-400 text-black rounded-md cursor-pointer transition hover:bg-yellow-500"
-                                    disabled={!item.meal.isAvailable}
+                                <Link href={`/dashboard/my-card/order/${item?.id}`}
+                                    className={`${!item.meal.isAvailable ? "pointer-events-none opacity-50" : ""}px-3 py-1 bg-green-600 text-white rounded-md cursor-pointer transition hover:bg-green-700 `}
                                 >
                                     Order
-                                </button>
-                                <button onClick={()=>handleDeleteCardItem(item?.id)} className="px-3 py-1 bg-red-600 text-white rounded-md cursor-pointer transition hover:bg-red-700">
+                                </Link>
+                                <button onClick={() => handleDeleteCardItem(item?.id)} className="px-3 py-1 bg-red-600 text-white rounded-md cursor-pointer transition hover:bg-red-700">
                                     Delete
                                 </button>
                             </td>

@@ -1,13 +1,29 @@
 "use client";
 
+import { deleteCardItem } from '@/actions/addToCard.action';
 import { CartItemType } from '@/app/(dashboardLayout)/@user/dashboard/my-card/page';
 import React from 'react';
+import { toast } from 'sonner';
 
 interface CardItemTableProps {
     data: CartItemType[];
 }
 
 const CardItemTable: React.FC<CardItemTableProps> = ({ data }) => {
+
+    const handleDeleteCardItem = async(id:string)=>{
+       const toastId = toast.loading("Item is deleting.......");
+       try{
+        const data = await deleteCardItem(id);
+        if(!data.success){
+            return toast.error(data?.message ||'Failed to delete item',{id:toastId})
+        }
+        toast.success(data?.message || "Item deleted successfully",{id:toastId})
+       }catch(err:any){
+        toast.error(err.message ||"something went wrong, please try again later",{id:toastId})
+       }
+    }
+
     return (
         <div className="overflow-x-auto mt-6">
             <table className="min-w-full border   text-sm">
@@ -62,14 +78,14 @@ const CardItemTable: React.FC<CardItemTableProps> = ({ data }) => {
                             </td>
 
                             {/* Actions */}
-                            <td className=" py-2 flex justify-center gap-2 whitespace-nowrap">
+                            <td className="  py-2 flex justify-center gap-2 whitespace-nowrap">
                                 <button
                                     className="px-3 py-1 bg-yellow-400 text-black rounded-md cursor-pointer transition hover:bg-yellow-500"
                                     disabled={!item.meal.isAvailable}
                                 >
                                     Order
                                 </button>
-                                <button className="px-3 py-1 bg-red-600 text-white rounded-md cursor-pointer transition hover:bg-red-700">
+                                <button onClick={()=>handleDeleteCardItem(item?.id)} className="px-3 py-1 bg-red-600 text-white rounded-md cursor-pointer transition hover:bg-red-700">
                                     Delete
                                 </button>
                             </td>

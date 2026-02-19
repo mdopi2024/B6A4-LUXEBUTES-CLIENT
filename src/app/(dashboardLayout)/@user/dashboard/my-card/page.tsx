@@ -31,8 +31,6 @@ const MYCard = async() => {
     const session = await userServices.getSession()
     const {data} = await getAllCardItems(session?.user?.id)
     const mealData = data?.map((meal:CartItemType)=> meal.meal);
-    console.log(mealData)
-    console.log(data)
     return (
         <div>
             <CardItemTable data={data}></CardItemTable>

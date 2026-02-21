@@ -11,6 +11,10 @@ export const getAllCardItems = async(id:string)=>{
     const result = await addToCardService.getAllCardItems(id)
     return result
 }
+export const getCardItemById = async(id:string)=>{
+    const result = await addToCardService.getCardItemById(id)
+    return result
+}
 export const deleteCardItem = async(id:string)=>{
     const result = await addToCardService.deleteCardItem(id)
     revalidateTag("card-item",'max')

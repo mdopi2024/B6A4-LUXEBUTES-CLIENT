@@ -11,7 +11,6 @@ interface CardItemTableProps {
 }
 
 const CardItemTable: React.FC<CardItemTableProps> = ({ data }) => {
-
     const handleDeleteCardItem = async (id: string) => {
         const toastId = toast.loading("Item is deleting.......");
         try {

@@ -23,15 +23,11 @@ export async function proxy(request: NextRequest) {
 
 
     const role = data?.user?.role
-    console.log(path)
+
 
     if (!data) {
         return NextResponse.redirect(new URL('/login', request.url))
     }
-
-    console.log('customerRoute items:', customerRoute[0].items)
-    console.log('providerRoute items:', providerRoute[0].items)
-    console.log('path:', path)
 
     if (role !== 'ADMIN' && adminRoute[0].items.some(item => path.startsWith(item.url))) {
 

@@ -33,6 +33,17 @@ export const addToCardService = {
          
         return await req.json()
     },
+    getCardItemById: async (id:string) => {
+        const req = await fetch(`${API_URL}/card-item/single/${id}`, {
+            method: 'GET',
+            headers: {
+                Cookie: await cookie()
+            },
+            next:{tags:["card_item"]}
+        })
+         
+        return await req.json()
+    },
     deleteCardItem: async (id:string) => {
         const req = await fetch(`${API_URL}/card-item/${id}`, {
             method: 'DELETE',

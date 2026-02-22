@@ -28,10 +28,10 @@ const MenuDetailCard = ({ data,userId}: { data: MenuType , userId:string}) => {
   }
 
   return (
-    <div className=" mt-1  flex items-center justify-center px-4 py-10">
+    <div className=" h-full  flex items-center justify-center px-4 ">
 
       {/* Card Wrapper */}
-      <div className="lg:w-3/5 h-full md:h-75 p-5 rounded-md  border shadow-xl shadow-gray-400 overflow-hidden md:flex md:gap-2">
+      <div className="lg:w-3/5  p-3 rounded-md  border shadow-lg shadow-gray-400 overflow-hidden md:flex md:gap-2">
 
         {/* Left: Image */}
         <div className="w-full  border  rounded-md ">

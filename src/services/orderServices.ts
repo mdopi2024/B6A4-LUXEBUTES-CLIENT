@@ -1,6 +1,9 @@
 
 import { env } from "@/env"
 import { cookie } from "@/utils/cookie"
+import { Tags } from "lucide-react"
+import next from "next"
+
 
 export interface OrderTypes {
     mealId:string,
@@ -29,9 +32,21 @@ export const orderServices = {
       const req = await fetch(`${API_URL}/order/${id}`,{
         method:"GET",
         headers:{
+            Cookie:await cookie()
+        },
+        next:{tags:['customer-order']}
+        
+      })
+      return await req.json()
+    },
+    updateOrderStatus:async(id:string,data:{status:string})=>{
+      const req = await fetch(`${API_URL}/order/${id}`,{
+        method:"PATCH",
+        headers:{
             'content-type':'application/json',
             Cookie:await cookie()
         },
+        body:JSON.stringify(data)
       })
       return await req.json()
     }

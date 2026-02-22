@@ -6,7 +6,6 @@ import { userServices } from '@/services/userServices';
 const MyOrdersPage = async() => {
     const session = await userServices.getSession()
     const {data} = await getOrderByUserId(session?.user?.id)
- 
     return (
         <div>
           <CustomerOrderTable data={data}></CustomerOrderTable>

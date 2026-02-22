@@ -6,10 +6,12 @@ import { Field, FieldError, FieldGroup, FieldLabel, } from "@/components/ui/fiel
 import { useForm } from "@tanstack/react-form";
 import * as z from 'zod'
 import { toast } from "sonner";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from "@/components/ui/input";
+import { getSession } from "@/actions/user.actions";
+import { createReview } from "@/actions/review.actions";
+
 
 
 
@@ -23,15 +25,27 @@ const zodForm = z.object({
 const ReviewPage = () => {
 
     const router = useRouter()
+    const { id } = useParams();
     const form = useForm({
         defaultValues: {
             comment: '',
-           rating:5
+            rating: 5
         },
         onSubmit: async ({ value }) => {
-            const toastId = toast.loading("Updating user role ...")
+            const toastId = toast.loading("Submitting your review...")
             try {
-                console.log(value)
+                const { user } = await getSession()
+                if (!user) return toast.error("Please log in to submit a review.", { id: toastId })
+                const reviewData = { ...value, userId: user?.id as string, mealId: id as string }
+                const data = await createReview(reviewData)
+                if (!data?.success) {
+                    console.log(data.messag)
+                    return toast.error(data?.message || "Failed to submit your review. Please try again.", { id: toastId })
+
+                }
+
+                toast.success("Your review has been submitted successfully!", { id: toastId });
+                router.push('/dashboard/my-orders')
             } catch (error) {
                 toast.error("Something went wrong. Please try again later.", { id: toastId })
             }

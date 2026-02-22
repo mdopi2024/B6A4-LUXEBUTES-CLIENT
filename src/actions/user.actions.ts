@@ -4,6 +4,10 @@ import { userServices } from "@/services/userServices";
 import { revalidateTag } from "next/cache";
 
 
+export const getSession = async()=>{
+    const data = await userServices.getSession();
+    return  data
+}
 export const getUserById = async(id:string)=>{
     const data = await userServices.getUserById(id);
     return  data

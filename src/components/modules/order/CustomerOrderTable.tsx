@@ -128,7 +128,7 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                     <Tooltip.Trigger asChild>
                       {canReview ? (
                         <Link
-                          href={`/dashboard/my-orders/review/${order.id}`}
+                          href={`/dashboard/my-orders/review/${order?.meal?.id}`}
                           className="px-3 py-1 rounded text-white bg-green-600 hover:bg-green-700 cursor-pointer transition"
                         >
                           Review

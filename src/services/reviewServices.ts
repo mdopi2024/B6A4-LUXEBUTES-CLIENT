@@ -1,3 +1,4 @@
+
 import { env } from "@/env"
 import { cookie } from "@/utils/cookie"
 export interface ReviewData{
@@ -17,6 +18,15 @@ export const reviewServices ={
                 Cookie:await cookie()
             },
             body:JSON.stringify(data)
+        })
+        return await req.json()
+    },
+    getReviewByMealId:async(id:string)=>{
+        const req= await fetch(`${API_URL}/review/${id}`,{
+            method:'GET',
+            headers:{
+                Cookie:await cookie()
+            }
         })
         return await req.json()
     }

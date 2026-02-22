@@ -28,10 +28,10 @@ const MenuDetailCard = ({ data,userId}: { data: MenuType , userId:string}) => {
   }
 
   return (
-    <div className=" mt-6  flex items-center justify-center px-4 py-10">
+    <div className=" mt-1  flex items-center justify-center px-4 py-10">
 
       {/* Card Wrapper */}
-      <div className="lg:w-2/3 p-5 rounded-md  border shadow-xl shadow-gray-400 overflow-hidden md:flex md:gap-2">
+      <div className="lg:w-3/5 h-full md:h-75 p-5 rounded-md  border shadow-xl shadow-gray-400 overflow-hidden md:flex md:gap-2">
 
         {/* Left: Image */}
         <div className="w-full  border  rounded-md ">
@@ -43,7 +43,7 @@ const MenuDetailCard = ({ data,userId}: { data: MenuType , userId:string}) => {
         </div>
 
         {/* Right: Info Section */}
-        <div className="w-full p-6 md:p-10 flex flex-col justify-around">
+        <div className="w-full p-3  flex flex-col justify-around">
 
           {/* Top Info */}
           <div>
@@ -75,7 +75,7 @@ const MenuDetailCard = ({ data,userId}: { data: MenuType , userId:string}) => {
             </div>
 
             <button 
-              className={`px-7 py-3 rounded-lg font-medium shadow-md text-black transition ${data.isAvailable
+              className={`px-3 py-2 rounded-lg font-medium shadow-md text-black transition ${data.isAvailable
                   ? "bg-[#fbbe24d5] hover:bg-[#FBBF24] "
                   : "bg-gray-400 cursor-not-allowed"
                 }`}

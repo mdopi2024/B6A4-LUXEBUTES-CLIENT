@@ -4,6 +4,7 @@ import React from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { toast } from 'sonner';
 import { updateOrderStatus } from '@/actions/order.actions';
+import Link from 'next/link';
 
 export interface OrderWithMeal {
   id: string;
@@ -94,6 +95,7 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                   </span>
                 </td>
                 <td className="px-4 py-2 flex gap-2">
+                  
                   {/* Cancel Button with Tooltip */}
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
@@ -124,16 +126,18 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                   {/* Review Button with Tooltip */}
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
-                      <button
-                        disabled={!canReview}
-                        className={`px-3 py-1 rounded text-white transition ${
-                          canReview
-                            ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
-                            : 'bg-gray-400 cursor-not-allowed'
-                        }`}
-                      >
-                        Review
-                      </button>
+                      {canReview ? (
+                        <Link
+                          href={`/dashboard/my-orders/review/${order.id}`}
+                          className="px-3 py-1 rounded text-white bg-green-600 hover:bg-green-700 cursor-pointer transition"
+                        >
+                          Review
+                        </Link>
+                      ) : (
+                        <span className="px-3 py-1 rounded text-white bg-gray-400 cursor-not-allowed transition">
+                          Review
+                        </span>
+                      )}
                     </Tooltip.Trigger>
                     <Tooltip.Content
                       side="top"
@@ -146,6 +150,7 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                       <Tooltip.Arrow className="fill-white" />
                     </Tooltip.Content>
                   </Tooltip.Root>
+
                 </td>
               </tr>
             );

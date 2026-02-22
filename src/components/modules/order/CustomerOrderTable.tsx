@@ -37,16 +37,14 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
 
   const handleCancelOrder = async(id:string,status:"CANCELLED")=>{
     const toastId = toast.loading("Updating status......")
-   try{
-     const data = {status}
-     const result = await updateOrderStatus(id,data)
-     if(!result?.success) return toast.error(result?.message ||  "Failed to update order",{id:toastId})
-      toast.success(result?.message ||  "Order updated  successfully.",{id:toastId})
-
-   }catch(err){
-     toast.error("something went wrong,  please try later",{id:toastId})
-   }
-    
+    try{
+      const payload = {status}
+      const result = await updateOrderStatus(id,payload)
+      if(!result?.success) return toast.error(result?.message || "Failed to update order",{id:toastId})
+      toast.success(result?.message || "Order updated successfully.",{id:toastId})
+    }catch(err){
+      toast.error("Something went wrong, please try later",{id:toastId})
+    }
   }
 
   return (
@@ -64,6 +62,7 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
         <tbody>
           {data.map((order) => {
             const canCancel = order.status === 'PREPARING';
+            const canReview = order.status === 'DELIVERED';
 
             return (
               <tr key={order.id} className="border-b hover:bg-gray-50">
@@ -122,10 +121,31 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                     </Tooltip.Content>
                   </Tooltip.Root>
 
-                  {/* Review Button (Design only) */}
-                  <button className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition">
-                    Review
-                  </button>
+                  {/* Review Button with Tooltip */}
+                  <Tooltip.Root delayDuration={150}>
+                    <Tooltip.Trigger asChild>
+                      <button
+                        disabled={!canReview}
+                        className={`px-3 py-1 rounded text-white transition ${
+                          canReview
+                            ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
+                            : 'bg-gray-400 cursor-not-allowed'
+                        }`}
+                      >
+                        Review
+                      </button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      side="top"
+                      sideOffset={6}
+                      className="px-3 py-1.5 bg-white text-gray-900 text-sm font-medium rounded-md shadow-md select-none"
+                    >
+                      {canReview
+                        ? 'Click to review this meal'
+                        : 'You can review only after delivery'}
+                      <Tooltip.Arrow className="fill-white" />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
                 </td>
               </tr>
             );

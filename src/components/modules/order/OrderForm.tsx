@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getCardItemById } from "@/actions/addToCard.action";
 import { createOrder } from "@/actions/order.actions";
+import { useRouter } from "next/navigation";
 
 
 
@@ -23,6 +24,7 @@ const zodForm = z.object({
 
 
 const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
+    const router = useRouter()
     const form = useForm({
         defaultValues: {
             delevaryAddress: '',
@@ -42,7 +44,7 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
                     return toast.error(order?.message || "Unable to process your order. Please try again.",{ id: toastId })
                 }
                 toast.success(order?.message ||  "Your order has been successfully placed.",{ id: toastId })
-
+               router.push('/dashboard/my-card')
             } catch (error) {
                 toast.error("Unable to place your order. Please try again.", { id: toastId })
             }

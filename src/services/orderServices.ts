@@ -1,3 +1,4 @@
+
 import { env } from "@/env"
 import { cookie } from "@/utils/cookie"
 
@@ -21,6 +22,16 @@ export const orderServices = {
             Cookie:await cookie()
         },
         body:JSON.stringify(data)
+      })
+      return await req.json()
+    },
+    getOrderByUserId:async(id:string)=>{
+      const req = await fetch(`${API_URL}/order/${id}`,{
+        method:"GET",
+        headers:{
+            'content-type':'application/json',
+            Cookie:await cookie()
+        },
       })
       return await req.json()
     }

@@ -13,6 +13,10 @@ export const customerRoutes:Routes[] = [
            {
              title:"My Card",
              url:"/dashboard/my-card"
+            },
+           {
+             title:"My Orders",
+             url:"/dashboard/my-orders"
             }
         ]
     }

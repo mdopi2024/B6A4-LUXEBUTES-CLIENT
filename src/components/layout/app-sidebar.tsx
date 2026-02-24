@@ -1,5 +1,5 @@
 import * as React from "react"
-
+import Link from "next/link";
 import { SearchForm } from "@/components/layout/search-form"
 import { VersionSwitcher } from "@/components/layout/version-switcher"
 import {
@@ -14,13 +14,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
 import { Routes } from "@/types"
 import { adminRoutes } from "@/routes/adminRoutes"
 import { providerRoutes } from "@/routes/providerRoutes"
 import { customerRoutes } from "@/routes/customerRoutes"
 
-export function AppSidebar({role, ...props }: { role: string } & React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ role, ...props }: { role: string } & React.ComponentProps<typeof Sidebar>) {
 
   let routes: Routes[] = [];
 
@@ -41,10 +40,10 @@ export function AppSidebar({role, ...props }: { role: string } & React.Component
       {/* Logo/Header Section */}
       <SidebarHeader className="bg-white border-b border-teal-100 p-4">
         <div className="flex items-center gap-2">
-          <img 
-            src="/laxelogo.png" 
-            className="w-10 h-10 rounded-full border-2 border-[#0F766E]" 
-            alt="LuxeBites logo" 
+          <img
+            src="/laxelogo.png"
+            className="w-10 h-10 rounded-full border-2 border-[#0F766E]"
+            alt="LuxeBites logo"
           />
           <h2 className="text-xl font-bold text-[#0F766E]">LuxeBites</h2>
         </div>
@@ -59,12 +58,12 @@ export function AppSidebar({role, ...props }: { role: string } & React.Component
                 {item.title}
               </SidebarGroupLabel>
             )}
-            
+
             <SidebarGroupContent>
               <SidebarMenu className="space-y-1 px-3">
                 {item.items.map((subItem) => (
                   <SidebarMenuItem key={subItem.title}>
-                    <SidebarMenuButton 
+                    <SidebarMenuButton
                       asChild
                       className="
                         hover:bg-[#FBBF24] 
@@ -92,7 +91,10 @@ export function AppSidebar({role, ...props }: { role: string } & React.Component
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+        <Link className=" px-3 py-1 font-semibold text-gray-700 text-sm mt-4 hover:bg-[#FBBF24]   rounded-md  md:mx-3" href={'/'}>Go to Homepage</Link>
       </SidebarContent>
+
+
 
       <SidebarRail className="bg-[#0F766E]" />
     </Sidebar>

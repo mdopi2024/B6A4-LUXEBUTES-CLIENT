@@ -11,6 +11,10 @@ export const getOrderByUserId = async(id:string)=>{
     const result = await orderServices.getOrderByUserId(id);
      return result
 }
+export const getOrderById = async(id:string)=>{
+    const result = await orderServices.getOrderById(id);
+     return result
+}
 export const updateOrderStatus = async(id:string,data:{status:string})=>{
     const result = await orderServices.updateOrderStatus(id,data);
     revalidateTag('customer-order',"max")

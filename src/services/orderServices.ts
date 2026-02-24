@@ -28,6 +28,17 @@ export const orderServices = {
       })
       return await req.json()
     },
+    getAllOrders:async()=>{
+      const req = await fetch(`${API_URL}/order`,{
+        method:"GET",
+        headers:{
+            Cookie:await cookie()
+        },
+        next:{tags:['customer-order']}
+        
+      })
+      return await req.json()
+    },
     getOrderByUserId:async(id:string)=>{
       const req = await fetch(`${API_URL}/order/${id}`,{
         method:"GET",
@@ -35,6 +46,17 @@ export const orderServices = {
             Cookie:await cookie()
         },
         next:{tags:['customer-order']}
+        
+      })
+      return await req.json()
+    },
+    getOrderById:async(id:string)=>{
+      const req = await fetch(`${API_URL}/single-order/${id}`,{
+        method:"GET",
+        headers:{
+            Cookie:await cookie()
+        },
+        next:{tags:['admin-order']}
         
       })
       return await req.json()

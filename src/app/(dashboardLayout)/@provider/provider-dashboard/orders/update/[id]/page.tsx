@@ -23,7 +23,7 @@ const UpdateOrderStatus = () => {
     useEffect(() => {
         const singleOrder = async () => {
             const { data } = await getOrderById(id as string)
-               setStatus(data?.status)
+            setStatus(data?.status)
         }
         singleOrder()
     }, [id])
@@ -35,11 +35,11 @@ const UpdateOrderStatus = () => {
         onSubmit: async ({ value }) => {
             const toastId = toast.loading("Updating user role ...")
             try {
-                 const data = await updateOrderStatus(id as string,value )
-                 if(!data.success){
-                    return toast.error(data?.message || "Faile to update status",{id:toastId})
-                 }
-                 toast.success(data?.message || "Order status updated successfullly",{id:toastId})
+                const data = await updateOrderStatus(id as string, value)
+                if (!data.success) {
+                    return toast.error(data?.message || "Faile to update status", { id: toastId })
+                }
+                toast.success(data?.message || "Order status updated successfullly", { id: toastId })
                 router.push('/provider-dashboard/orders')
             } catch (error) {
                 toast.error("Something went wrong. Please try again later.", { id: toastId })

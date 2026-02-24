@@ -130,17 +130,28 @@ const UserAllOrderTable = ({ orders }: { orders: Orders[] }) => {
                 <Tooltip.Provider>
                   <Tooltip.Root delayDuration={300}>
                     <Tooltip.Trigger asChild>
-                      <Link href={`/admin-dashboard/orders/update/${order?.id}`}
-                        className={`text-gray-500 hover:text-blue-600 transition`}
-                      >
-                        <FiEdit size={18} />
-                      </Link>
+                      {order.status === "CANCELLED" ? (
+                        <span
+                          className="text-gray-300 cursor-not-allowed transition"
+                        >
+                          <FiEdit size={18} />
+                        </span>
+                      ) : (
+                        <Link
+                          href={`/provider-dashboard/orders/update/${order.id}`}
+                          className="text-gray-500 hover:text-blue-600 transition"
+                        >
+                          <FiEdit size={18} />
+                        </Link>
+                      )}
                     </Tooltip.Trigger>
                     <Tooltip.Content
                       side="top"
                       className="rounded-md bg-gray-500 text-white text-xs px-2 py-1 shadow-lg z-50"
                     >
-                      Update Order Status
+                      {order.status === "CANCELLED"
+                        ? "Cannot update a cancelled order"
+                        : "Update Order Status"}
                       <Tooltip.Arrow className="fill-gray-800" />
                     </Tooltip.Content>
                   </Tooltip.Root>

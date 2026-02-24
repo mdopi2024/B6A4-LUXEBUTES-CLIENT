@@ -42,7 +42,7 @@ export interface Orders {
   };
 }
 
-const AllOrderTable = ({ orders }: { orders: Orders[] }) => {
+const UserAllOrderTable = ({ orders }: { orders: Orders[] }) => {
   if (!orders || orders.length === 0) {
     return (
       <div className="p-6 text-center text-gray-500 bg-gray-50 rounded-xl border">
@@ -154,4 +154,4 @@ const AllOrderTable = ({ orders }: { orders: Orders[] }) => {
   );
 };
 
-export default AllOrderTable;
+export default UserAllOrderTable;

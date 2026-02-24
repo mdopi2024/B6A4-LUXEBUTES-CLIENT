@@ -5,6 +5,10 @@ export const providerRoutes:Routes[] = [
         title:"Provider Dashboard",
         items:[
            {
+             title:"Oders",
+             url:"/provider-dashboard/orders"
+            },
+           {
              title:"Manage Menu",
              url:"/provider-dashboard/manage-menu"
             },

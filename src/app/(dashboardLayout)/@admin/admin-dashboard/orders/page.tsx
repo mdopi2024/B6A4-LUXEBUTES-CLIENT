@@ -1,13 +1,14 @@
-import AllOrderTable from '@/components/modules/shared/AllOrderTable';
+import UserAllOrderTable from '@/components/modules/order/AdminAllOrderTable';
+import AllOrderTable from '@/components/modules/order/AdminAllOrderTable';
 import { orderServices } from '@/services/orderServices';
-import React from 'react';
+
 
 const AdminOrderPage = async() => {
 
     const {data}= await orderServices.getAllOrders()
     return (
         <div>
-           <AllOrderTable orders={data}></AllOrderTable>
+           <UserAllOrderTable orders={data}></UserAllOrderTable>
         </div>
     );
 };

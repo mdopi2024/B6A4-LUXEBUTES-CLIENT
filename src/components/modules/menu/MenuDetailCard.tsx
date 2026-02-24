@@ -38,7 +38,7 @@ const MenuDetailCard = ({ data,userId}: { data: MenuType , userId:string}) => {
           <img
             src={data?.image}
             alt={data?.name}
-            className="w-full h-full object-cover border  rounded-md "
+            className="w-full md:h-87.5 object-cover border  rounded-md "
           />
         </div>
 

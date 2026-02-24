@@ -18,12 +18,12 @@ const MenuDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     return (
         <div>
-            <div className="h-full md:h-87.5  ">
+            <div className="h-full   ">
                 <MenuDetailCard data={data?.data} userId={session?.user?.id} ></MenuDetailCard>
             </div>
             <div className=" mt-2 p-3  flex justify-center items-center">
-                <div className="border-2 border-teal-700 rounded-md  md:w-3/5">
-                    <ReviewCard review={review.data}></ReviewCard>
+                <div className="border-2 border-teal-700 rounded-md w-full p-3  md:w-3/5">
+                    <ReviewCard reviews={review.data}></ReviewCard>
                 </div>
             </div>
         </div>

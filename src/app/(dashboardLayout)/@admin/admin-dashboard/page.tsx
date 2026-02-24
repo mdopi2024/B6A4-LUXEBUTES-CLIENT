@@ -7,7 +7,7 @@ const AdminDashboard = async() => {
     const {user} = await userServices.getSession()
 
     return (
-        <div className='border border-blue-700 '>
+        <div className='flex justify-center items-center '>
           <ProfileCard user={user} ></ProfileCard> 
         </div>
     );

@@ -91,7 +91,7 @@ export function AppSidebar({ role, ...props }: { role: string } & React.Componen
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
-        <Link className=" px-3 py-1 font-semibold text-gray-700 text-sm mt-4 hover:bg-[#FBBF24]   rounded-md  md:mx-3" href={'/'}>Go to Homepage</Link>
+        <Link className=" px-4 py-1 font-semibold text-gray-700 text-sm mt-4 hover:bg-[#FBBF24]   rounded-md  md:mx-3" href={'/'}>Go to Homepage</Link>
       </SidebarContent>
 
 

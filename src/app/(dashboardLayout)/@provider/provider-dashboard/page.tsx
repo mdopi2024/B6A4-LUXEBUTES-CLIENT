@@ -1,8 +1,8 @@
 import ProfileCard from '@/components/shared/ProfileCard';
 import { userServices } from '@/services/userServices';
-import React from 'react';
 
-const UserDashboard = async() => {
+
+const ProviderProfile = async() => {
     const {user} = await userServices.getSession()
     return (
         <div className='flex justify-center items-center'>
@@ -11,4 +11,4 @@ const UserDashboard = async() => {
     );
 };
 
-export default UserDashboard;
+export default ProviderProfile;

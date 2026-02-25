@@ -1,10 +1,10 @@
-# LuxeButes 🍱
+# LuxeBites 🍱
 **"Discover & Order Delicious Meals"**
 
 ---
 
 ## **Project Overview**
-LuxeButes is a **full-stack meal ordering platform** where:
+LuxeBites is a **full-stack meal ordering platform** where:
 
 - **Customers** browse meals, place orders, track deliveries, and leave reviews  
 - **Providers** manage menus and fulfill orders  

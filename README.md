@@ -35,6 +35,7 @@ FoodHub is a **full-stack meal ordering platform** where:
 ---
 
 ## **Pages & Routes**
+
 ### Public
 | Route | Description |
 |-------|------------|
@@ -92,9 +93,8 @@ FoodHub is a **full-stack meal ordering platform** where:
 - **PLACED** → **PREPARING** → **READY** → **DELIVERED**  
            \
             → **CANCELLED** (by customer)
-            
 
-
+---
 
 ## **Setup Instructions**
 
@@ -103,5 +103,6 @@ FoodHub is a **full-stack meal ordering platform** where:
 git clone https://github.com/mdopi2024/B6A4-LUXEBUTE--SERVER
 cd B6A4-LUXEBUTE--SERVER
 npm install
+# Configure .env file with database and JWT settings
 npx prisma migrate dev --name init
 npm run dev

@@ -1,10 +1,10 @@
-# FoodHub 🍱
+# LuxeButes 🍱
 **"Discover & Order Delicious Meals"**
 
 ---
 
 ## **Project Overview**
-FoodHub is a **full-stack meal ordering platform** where:
+LuxeButes is a **full-stack meal ordering platform** where:
 
 - **Customers** browse meals, place orders, track deliveries, and leave reviews  
 - **Providers** manage menus and fulfill orders  

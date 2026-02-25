@@ -1,5 +1,6 @@
 // Footer.tsx
-import React from "react";
+
+import Link from "next/link";
 import { FiFacebook, FiInstagram, FiTwitter, FiMail } from "react-icons/fi";
 
 const Footer = () => {
@@ -20,19 +21,19 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/" className="hover:text-gray-100 transition-colors">Home</a>
+              <Link href="/" className="hover:text-gray-100 transition-colors">Home</Link>
             </li>
             <li>
-              <a href="/meals" className="hover:text-gray-100 transition-colors">Meals</a>
+              <Link href="/menu" className="hover:text-gray-100 transition-colors">Menu</Link>
             </li>
             <li>
-              <a href="/providers" className="hover:text-gray-100 transition-colors">Providers</a>
+              <a href='#' className="hover:text-gray-100 transition-colors">Providers</a>
             </li>
             <li>
-              <a href="/about" className="hover:text-gray-100 transition-colors">About</a>
+              <a href='#' className="hover:text-gray-100 transition-colors">About</a>
             </li>
             <li>
-              <a href="/contact" className="hover:text-gray-100 transition-colors">Contact</a>
+              <a href='#' className="hover:text-gray-100 transition-colors">Contact</a>
             </li>
           </ul>
         </div>

@@ -138,7 +138,7 @@ const UserAllOrderTable = ({ orders }: { orders: Orders[] }) => {
                         </span>
                       ) : (
                         <Link
-                          href={`/provider-dashboard/orders/update/${order.id}`}
+                          href={`/admin-dashboard/orders/update/${order.id}`}
                           className="text-gray-500 hover:text-blue-600 transition"
                         >
                           <FiEdit size={18} />

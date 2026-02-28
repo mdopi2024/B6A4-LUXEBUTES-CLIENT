@@ -16,18 +16,21 @@ export async function proxy(request: NextRequest) {
     const providerRoute = providerRoutes
 
     const roleRoute :Record<string,string>={
-        ADMIN:'/admin-dashboard',
+        ADMIN:'/admin-dashboard/manageUser',
         CUSTOMER:'/dashboard/my-card',
         PROVIDER:'/provider-dashboard/manage-menu'
     }
 
 
-    const role = data?.user?.role
+
 
 
     if (!data) {
         return NextResponse.redirect(new URL('/login', request.url))
     }
+   
+
+    const role = data?.user?.role
 
     if (role !== 'ADMIN' && adminRoute[0].items.some(item => path.startsWith(item.url))) {
 

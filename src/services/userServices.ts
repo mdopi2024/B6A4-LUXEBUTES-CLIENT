@@ -3,7 +3,7 @@ import { cookie } from "@/utils/cookie"
 import next from "next"
 import { cookies } from "next/headers"
 
-const AUTH_URL = env.AUTH_URL
+const AUTH_URL = env.AUTH_URL 
 const API_URL =env.API_URL
 export const userServices = {
     getSession: async () => {

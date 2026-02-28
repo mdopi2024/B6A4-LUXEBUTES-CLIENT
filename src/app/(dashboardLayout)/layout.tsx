@@ -26,7 +26,7 @@ export default async function Page({
 }) {
 
   const session = await userServices.getSession()
-  const role = session.user.role;
+  const role = session?.user?.role;
 
   return (
     <SidebarProvider>

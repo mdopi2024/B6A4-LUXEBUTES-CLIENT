@@ -13,6 +13,9 @@ interface UserType {
 }
 
 const ProfileCard = ({ user }: { user: UserType }) => {
+  if(!user) {
+    return null
+  }
   const { name, email, role, emailVerified, createdAt, updatedAt, status, image } = user;
 
   // Badge colors

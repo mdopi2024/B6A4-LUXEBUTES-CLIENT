@@ -60,23 +60,23 @@ const UserTableCard: React.FC<Props> = ({ data }) => {
                 }
               >
                 <td className="px-4 py-2 text-sm text-gray-600 font-medium">{index + 1}</td>
-                <td className="px-4 py-2 text-sm font-semibold text-[#0F766E]">{user.name}</td>
+                <td className="px-4 py-2 text-sm font-semibold text-[#0F766E]">{user?.name}</td>
                 <td className="px-4 py-2 text-sm text-gray-700 italic">{user.email}</td>
-                <td className="px-4 py-2 text-sm font-medium text-[#0F766E]">{user.role}</td>
-                <td className="px-4 py-2 text-sm text-[#FBBF24] font-semibold">{user.status}</td>
+                <td className="px-4 py-2 text-sm font-medium text-[#0F766E]">{user?.role}</td>
+                <td className="px-4 py-2 text-sm text-[#FBBF24] font-semibold">{user?.status}</td>
                 <td className="px-4 py-2 text-sm text-gray-600">
                   {new Date(user.createdAt).toLocaleDateString()}{" "}
-                  <span className="text-gray-500 text-xs">{new Date(user.createdAt).toLocaleTimeString()}</span>
+                  <span className="text-gray-500 text-xs">{new Date(user?.createdAt).toLocaleTimeString()}</span>
                 </td>
                 <td className="px-4 py-2 text-sm text-gray-600">
                   {new Date(user.updatedAt).toLocaleDateString()}{" "}
-                  <span className="text-gray-500 text-xs">{new Date(user.updatedAt).toLocaleTimeString()}</span>
+                  <span className="text-gray-500 text-xs">{new Date(user?.updatedAt).toLocaleTimeString()}</span>
                 </td>
 
                 {/* Action Buttons */}
                 <td className="px-4 py-2 flex justify-center gap-2">
                   {/* Update Status */}
-                  <Link href={`/admin-dashboard/manageUser/update-user-status/${user.id}`}>
+                  <Link href={`/admin-dashboard/manageUser/update-user-status/${user?.id}`}>
                   <Tooltip.Root delayDuration={150}>
                     <Tooltip.Trigger asChild>
                       <div className="p-2 rounded-full bg-[#FBBF24] hover:bg-yellow-400 text-white cursor-pointer transition-colors duration-200">

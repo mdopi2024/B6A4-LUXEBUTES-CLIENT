@@ -10,8 +10,11 @@ export default async function Home() {
   return (
     <div >
 
-      <div className=" mt-5 mx-2 md:mx-0 flex justify-center">
+      <div className=" md:mx-0 flex justify-center">
         <Banner></Banner>
+      </div>
+        <div className="" >
+        <AboutSection></AboutSection>
       </div>
       <div className="py-8 px-1 md:px-16 ">
         <LatestMenus></LatestMenus>
@@ -20,12 +23,7 @@ export default async function Home() {
         <HowItWorksSection></HowItWorksSection>
       </div>
 
-      <div className="" >
-        <AboutSection></AboutSection>
-      </div>
-      <div className="" >
-        <Footer></Footer>
-      </div>
+   
     </div>
   );
 }

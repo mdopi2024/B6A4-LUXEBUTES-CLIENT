@@ -1,6 +1,6 @@
 # LuxeBites 🍱
 **"Discover & Order Delicious Meals"**
-
+<!-- primary color - text-teal-800, secoundary- #FBBF24 and third white -->
 ---
 Live Link : https://b6-a4-frontend-client.vercel.app
 ---

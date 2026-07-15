@@ -41,13 +41,14 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
     sortOrder,
   });
 
+  console.log(meta)
   return (
     <div>
       <div className="flex justify-center">
         <MenuSearch />
       </div>
 
-      <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-3 mx-4 mt-6">
+      <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-3 mx-4 mt-6 mb-12">
         {data?.map((menu: MenuType) => (
           <MenuCard key={menu?.id} menu={menu} />
         ))}
@@ -57,7 +58,9 @@ const MenuPage = async ({ searchParams }: MenuPageProps) => {
         <p className="text-center text-gray-500 mt-10">No menu items found.</p>
       )}
 
-      <MenuPagination totalPage={meta?.totalPage || 1} />
+     <div className='mb-12'>
+         <MenuPagination totalPage={meta?.totalPages || 1} />
+     </div>
     </div>
   );
 };

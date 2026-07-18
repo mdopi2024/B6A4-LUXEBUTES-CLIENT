@@ -43,6 +43,7 @@ export interface Orders {
 }
 
 const UserAllOrderTable = ({ orders }: { orders: Orders[] }) => {
+  console.log(orders)
   if (!orders || orders.length === 0) {
     return (
       <div className="p-6 text-center text-gray-500 bg-gray-50 rounded-xl border">

@@ -19,7 +19,7 @@ export const createMenu = async(data:MenuTypes)=>{
 
 // actions/menu.action.ts
 
-export const getAllMenu = async (params: GetAllMenuParams) => {
+export const getAllMenu = async (params: GetAllMenuParams = {}) => {
   const { searchTerm, page, limit, sortBy, sortOrder } = params;
 
   return await menuServices.getAllMenu({
@@ -30,7 +30,6 @@ export const getAllMenu = async (params: GetAllMenuParams) => {
     sortOrder,
   });
 };
-
 
 export const getMenuById = async(id:string)=>{
    const result = await menuServices.getMenuById(id)

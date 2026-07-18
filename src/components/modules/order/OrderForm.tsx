@@ -40,11 +40,38 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
 
                 const orderData = { ...value, userId, totalAmount, mealId: data?.meal?.id }
                 const order = await createOrder(orderData)
-                if(!order?.success){
-                    return toast.error(order?.message || "Unable to process your order. Please try again.",{ id: toastId })
+
+                // 👇 ডিবাগ করার জন্য - path নিশ্চিত হওয়ার পর এই লাইন সরিয়ে ফেলুন
+                console.log("order response:", JSON.stringify(order, null, 2))
+
+                if (!order?.success) {
+                    return toast.error(order?.message || "Unable to process your order. Please try again.", { id: toastId })
                 }
-                toast.success(order?.message ||  "Your order has been successfully placed.",{ id: toastId })
-               router.push('/dashboard/my-card')
+
+                const isCashOnDelivery =
+                    value.paymentMethod.trim().toLowerCase() === "cash on delivery"
+
+                // Cash on Delivery হলে Stripe redirect দরকার নেই - সরাসরি dashboard এ পাঠানো হবে
+                if (isCashOnDelivery) {
+                    toast.success(order?.message || "Your order has been successfully placed.", { id: toastId })
+                    router.push('/dashboard/my-card')
+                    return
+                }
+
+                // Stripe flow - paymentUrl খুঁজে বের করা হচ্ছে (backend response এর সম্ভাব্য বিভিন্ন structure এর জন্য fallback সহ)
+                const paymentUrl =
+                    order?.data?.paymentUrl ??
+                    order?.paymentUrl ??
+                    order?.data?.data?.paymentUrl
+
+                if (paymentUrl) {
+                    toast.success("Redirecting to payment page...", { id: toastId })
+                    window.location.href = paymentUrl
+                    return
+                }
+
+                // paymentUrl কোথাও না পাওয়া গেলে
+                toast.error("Payment session could not be created. Please try again.", { id: toastId })
             } catch (error) {
                 toast.error("Unable to place your order. Please try again.", { id: toastId })
             }
@@ -128,13 +155,16 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
                                             <SelectTrigger
                                                 id="paymentMethod-select"
                                                 aria-invalid={isInvalid}
-
                                             >
                                                 <SelectValue placeholder="Select payment method" />
-                                            </SelectTrigger >
-                                            <SelectContent position="popper" className=" w-full border ">
-                                                <SelectItem className=" px-3 py-2 " value="Cash on Delivery"> Cash on Delivery</SelectItem>
-
+                                            </SelectTrigger>
+                                            <SelectContent position="popper" className="w-full border">
+                                                <SelectItem className="px-3 py-2" value="stripe">
+                                                    Credit/Debit Card (Stripe)
+                                                </SelectItem>
+                                                <SelectItem className="px-3 py-2" value="Cash on Delivery">
+                                                    Cash on Delivery
+                                                </SelectItem>
                                             </SelectContent>
                                         </Select>
 
@@ -159,7 +189,3 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
 };
 
 export default OrderForm;
-
-
-
-

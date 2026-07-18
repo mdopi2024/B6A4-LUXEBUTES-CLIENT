@@ -53,6 +53,21 @@ const paymentStatusStyle = (status?: string) => {
   }
 };
 
+const orderStatusStyle = (status: string) => {
+  switch (status) {
+    case 'PREPARING':
+      return 'bg-yellow-500';
+    case 'DELIVERED':
+      return 'bg-green-500';
+    case 'CANCELLED':
+      return 'bg-red-500';
+    case 'READY':
+      return 'bg-blue-500';
+    default:
+      return 'bg-gray-500';
+  }
+};
+
 const CustomerOrderTable: React.FC<Props> = ({ data }) => {
 
   const handleCancelOrder = async (id: string, status: "CANCELLED") => {
@@ -65,6 +80,14 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
     } catch (err) {
       toast.error("Something went wrong, please try later", { id: toastId })
     }
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="p-6 text-center text-gray-500 bg-gray-50 rounded-xl border">
+        No orders available
+      </div>
+    );
   }
 
   return (
@@ -109,16 +132,9 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                 {/* Status */}
                 <td className="px-4 py-2 align-middle whitespace-nowrap">
                   <span
-                    className={`px-2 py-1 rounded-md text-white text-xs font-medium ${order.status === 'PREPARING'
-                      ? 'bg-yellow-500'
-                      : order.status === 'DELIVERED'
-                        ? 'bg-green-500'
-                        : order.status === 'CANCELLED'
-                          ? 'bg-red-500'
-                          : order.status === 'READY'
-                            ? 'bg-blue-500'
-                            : 'bg-gray-500'
-                      }`}
+                    className={`px-2 py-1 rounded-md text-white text-xs font-medium ${orderStatusStyle(
+                      order.status
+                    )}`}
                   >
                     {order.status}
                   </span>
@@ -140,58 +156,62 @@ const CustomerOrderTable: React.FC<Props> = ({ data }) => {
                   <div className="flex items-center gap-2">
 
                     {/* Cancel Button with Tooltip */}
-                    <Tooltip.Root delayDuration={150}>
-                      <Tooltip.Trigger asChild>
-                        <button
-                          disabled={!canCancel}
-                          onClick={() => handleCancelOrder(order.id, 'CANCELLED')}
-                          className={`px-3 py-1 rounded text-white transition ${canCancel
-                            ? 'bg-red-600 hover:bg-red-700 cursor-pointer'
-                            : 'bg-gray-400 cursor-not-allowed'
-                            }`}
+                    <Tooltip.Provider>
+                      <Tooltip.Root delayDuration={150}>
+                        <Tooltip.Trigger asChild>
+                          <button
+                            disabled={!canCancel}
+                            onClick={() => handleCancelOrder(order.id, 'CANCELLED')}
+                            className={`px-3 py-1 rounded text-white transition ${canCancel
+                              ? 'bg-red-600 hover:bg-red-700 cursor-pointer'
+                              : 'bg-gray-400 cursor-not-allowed'
+                              }`}
+                          >
+                            Cancel
+                          </button>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content
+                          side="top"
+                          sideOffset={6}
+                          className="px-3 py-1.5 bg-white text-gray-900 text-sm font-medium rounded-md shadow-lg select-none"
                         >
-                          Cancel
-                        </button>
-                      </Tooltip.Trigger>
-                      <Tooltip.Content
-                        side="top"
-                        sideOffset={6}
-                        className="px-3 py-1.5 bg-white text-gray-900 text-sm font-medium rounded-md shadow-lg select-none"
-                      >
-                        {canCancel
-                          ? 'Click to cancel order'
-                          : "Can cancel only while preparing"}
-                        <Tooltip.Arrow className="fill-white" />
-                      </Tooltip.Content>
-                    </Tooltip.Root>
+                          {canCancel
+                            ? 'Click to cancel order'
+                            : "Can cancel only while preparing"}
+                          <Tooltip.Arrow className="fill-white" />
+                        </Tooltip.Content>
+                      </Tooltip.Root>
+                    </Tooltip.Provider>
 
                     {/* Review Button with Tooltip */}
-                    <Tooltip.Root delayDuration={150}>
-                      <Tooltip.Trigger asChild>
-                        {canReview ? (
-                          <Link
-                            href={`/dashboard/my-orders/review/${order?.meal?.id}`}
-                            className="px-3 py-1 rounded text-white bg-green-600 hover:bg-green-700 cursor-pointer transition"
-                          >
-                            Review
-                          </Link>
-                        ) : (
-                          <span className="px-3 py-1 rounded text-white bg-gray-400 cursor-not-allowed transition">
-                            Review
-                          </span>
-                        )}
-                      </Tooltip.Trigger>
-                      <Tooltip.Content
-                        side="top"
-                        sideOffset={6}
-                        className="px-3 py-1.5 bg-white text-gray-900 text-sm font-medium rounded-md shadow-md select-none"
-                      >
-                        {canReview
-                          ? 'Click to review this meal'
-                          : 'You can review only after delivery'}
-                        <Tooltip.Arrow className="fill-white" />
-                      </Tooltip.Content>
-                    </Tooltip.Root>
+                    <Tooltip.Provider>
+                      <Tooltip.Root delayDuration={150}>
+                        <Tooltip.Trigger asChild>
+                          {canReview ? (
+                            <Link
+                              href={`/dashboard/my-orders/review/${order?.meal?.id}`}
+                              className="px-3 py-1 rounded text-white bg-green-600 hover:bg-green-700 cursor-pointer transition"
+                            >
+                              Review
+                            </Link>
+                          ) : (
+                            <span className="px-3 py-1 rounded text-white bg-gray-400 cursor-not-allowed transition">
+                              Review
+                            </span>
+                          )}
+                        </Tooltip.Trigger>
+                        <Tooltip.Content
+                          side="top"
+                          sideOffset={6}
+                          className="px-3 py-1.5 bg-white text-gray-900 text-sm font-medium rounded-md shadow-md select-none"
+                        >
+                          {canReview
+                            ? 'Click to review this meal'
+                            : 'You can review only after delivery'}
+                          <Tooltip.Arrow className="fill-white" />
+                        </Tooltip.Content>
+                      </Tooltip.Root>
+                    </Tooltip.Provider>
 
                   </div>
                 </td>

@@ -1,5 +1,6 @@
 import AboutSection from "@/components/modules/home/AboutSection";
 import Banner from "@/components/modules/home/Banner";
+import Features from "@/components/modules/home/Features";
 import Footer from "@/components/modules/home/Footer";
 import HowItWorksSection from "@/components/modules/home/HowItworksSection";
 import LatestMenus from "@/components/modules/home/LatestMenus";
@@ -21,6 +22,9 @@ export default async function Home() {
       </div>
       <div>
         <HowItWorksSection></HowItWorksSection>
+      </div>
+      <div>
+         <Features></Features>
       </div>
 
 

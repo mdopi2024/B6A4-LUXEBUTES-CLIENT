@@ -3,7 +3,9 @@
 
 import { useState, FormEvent, ChangeEvent } from "react";
 import { Playfair_Display, Inter } from "next/font/google";
-import { FiMail, FiPhone, FiMapPin, FiClock, FiArrowRight, FiCheck } from "react-icons/fi";
+import { FiMail, FiPhone, FiMapPin, FiClock, FiArrowRight, FiCheck, FiAlertCircle, FiLoader } from "react-icons/fi";
+import { sendContactEmail } from "@/utils/sendEmail";
+
 
 const display = Playfair_Display({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-display" });
 const body = Inter({ subsets: ["latin"], variable: "--font-body" });
@@ -49,7 +51,8 @@ const contactDetails = [
 
 const ContactPage = () => {
   const [form, setForm] = useState<FormData>(initialForm);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -58,17 +61,21 @@ const ContactPage = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
 
-    // Wire this up to your API route or email service when ready.
-    // Example: await fetch("/api/contact", { method: "POST", body: JSON.stringify(form) });
-    console.log("Contact form submitted:", form);
+    const result = await sendContactEmail(form);
 
-    setSubmitted(true);
-    setForm(initialForm);
-
-    setTimeout(() => setSubmitted(false), 4000);
+    if (result.success) {
+      setStatus("success");
+      setForm(initialForm);
+      setTimeout(() => setStatus("idle"), 4000);
+    } else {
+      setStatus("error");
+      setErrorMessage(result.error);
+    }
   };
 
   return (
@@ -168,10 +175,17 @@ const ContactPage = () => {
             We typically reply within one business day.
           </p>
 
-          {submitted && (
+          {status === "success" && (
             <div className="mb-6 flex items-center gap-2 rounded-md border border-amber-400 bg-amber-50 px-4 py-3 text-teal-900 text-sm animate-[fadeUp_0.4s_ease-out]">
               <FiCheck className="text-amber-500 shrink-0" />
               Thanks for reaching out. We will get back to you soon.
+            </div>
+          )}
+
+          {status === "error" && (
+            <div className="mb-6 flex items-center gap-2 rounded-md border border-red-300 bg-red-50 px-4 py-3 text-red-700 text-sm animate-[fadeUp_0.4s_ease-out]">
+              <FiAlertCircle className="text-red-500 shrink-0" />
+              {errorMessage || "Something went wrong. Please try again."}
             </div>
           )}
 
@@ -256,10 +270,20 @@ const ContactPage = () => {
 
             <button
               type="submit"
-              className="mt-2 group inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0B3B36] text-white font-semibold rounded-md transition-all duration-300 hover:bg-amber-400 hover:text-teal-900 hover:shadow-lg hover:shadow-amber-400/30 w-fit"
+              disabled={status === "sending"}
+              className="mt-2 group inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0B3B36] text-white font-semibold rounded-md transition-all duration-300 hover:bg-amber-400 hover:text-teal-900 hover:shadow-lg hover:shadow-amber-400/30 w-fit disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#0B3B36] disabled:hover:text-white disabled:hover:shadow-none"
             >
-              Send message
-              <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+              {status === "sending" ? (
+                <>
+                  Sending
+                  <FiLoader className="animate-spin" />
+                </>
+              ) : (
+                <>
+                  Send message
+                  <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                </>
+              )}
             </button>
           </form>
         </div>

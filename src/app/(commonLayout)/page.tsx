@@ -13,7 +13,7 @@ export default async function Home() {
       <div className=" md:mx-0 flex justify-center">
         <Banner></Banner>
       </div>
-        <div className="" >
+      <div className="" >
         <AboutSection></AboutSection>
       </div>
       <div className="py-8 px-1 md:px-16 ">
@@ -23,7 +23,9 @@ export default async function Home() {
         <HowItWorksSection></HowItWorksSection>
       </div>
 
-   
+
     </div>
   );
 }
+
+

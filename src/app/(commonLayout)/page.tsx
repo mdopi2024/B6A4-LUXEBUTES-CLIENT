@@ -1,9 +1,11 @@
+
+
 import AboutSection from "@/components/modules/home/AboutSection";
 import Banner from "@/components/modules/home/Banner";
 import Features from "@/components/modules/home/Features";
-import Footer from "@/components/modules/home/Footer";
 import HowItWorksSection from "@/components/modules/home/HowItworksSection";
 import LatestMenus from "@/components/modules/home/LatestMenus";
+import OurPromise from "@/components/modules/home/OurPromise";
 
 
 
@@ -26,7 +28,9 @@ export default async function Home() {
       <div>
          <Features></Features>
       </div>
-
+      <div>
+        <OurPromise></OurPromise>
+      </div>
 
     </div>
   );

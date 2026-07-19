@@ -239,7 +239,7 @@ export default function Features() {
         <div className="mx-auto mb-8 max-w-[640px] text-center">
           <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-teal-800">
             <span className="h-[7px] w-[7px] rounded-full bg-amber-400 shadow-[0_0_0_4px_rgba(251,191,36,0.25)]" />
-            Why Laxibute
+            Why Laxebute
           </span>
           <h2 className="mb-4 font-[800] text-[clamp(32px,4.5vw,46px)] leading-[1.12] text-teal-950">
             Cravings, met with{' '}

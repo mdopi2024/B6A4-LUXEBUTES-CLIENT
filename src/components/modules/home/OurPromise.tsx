@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useRef, useState } from "react";
@@ -69,8 +68,8 @@ function PromiseCard({ item, index, visible }: PromiseCardProps) {
         />
       </div>
 
-      <h3 className="mb-2 text-lg font-bold text-teal-800">{item.title}</h3>
-      <p className="text-sm leading-relaxed text-teal-800/70">{item.desc}</p>
+      <h3 className="text-xl md:text-2xl font-semibold text-teal-900 mb-2">{item.title}</h3>
+      <p className="text-gray-600 leading-relaxed max-w-xs">{item.desc}</p>
 
       {/* bottom accent line */}
       <span className="absolute bottom-0 left-7 right-7 h-0.5 origin-left scale-x-0 rounded-full bg-amber-400 transition-transform duration-300 ease-out group-hover:scale-x-100" />
@@ -99,8 +98,8 @@ export default function OurPromise() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-teal-50/40 px-6 py-20">
-      <div className="mx-auto max-w-6xl">
+    <section ref={sectionRef} className="w-full bg-teal-50/40 px-6 pb-20">
+      <div className="mx-auto max-w-7xl">
         <div
           className="mb-14 text-center transition-all duration-700 ease-out"
           style={{
@@ -108,13 +107,13 @@ export default function OurPromise() {
             transform: visible ? "translateY(0px)" : "translateY(16px)",
           }}
         >
-          <span className="mb-4 inline-block rounded-full bg-amber-400 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-teal-900">
+          <span className="inline-block text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-amber-600 mb-3">
             Our Promise
           </span>
-          <h2 className="text-3xl font-bold text-teal-800 sm:text-4xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-teal-900 tracking-tight mb-4">
             What you can always count on
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-teal-800/60">
+          <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
             Four commitments we never compromise on, order after order.
           </p>
         </div>

@@ -193,7 +193,7 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
       ].join(' ')}
       style={{ transitionDelay: visible ? `${(index % 3) * 90}ms` : '0ms' }}
     >
-      <span className="mb-3.5 block font-semibold text-[12px] tracking-[0.08em] text-amber-500">
+      <span className="mb-3.5 block font-semibold text-[12px] tracking-[0.08em] text-amber-600">
         {feature.stop}
       </span>
 
@@ -215,10 +215,10 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
         </svg>
       </div>
 
-      <h3 className="mb-2.5 text-[19px] font-bold text-teal-950">
+      <h3 className="text-xl md:text-2xl font-semibold text-teal-900 mb-2">
         {feature.title}
       </h3>
-      <p className="text-[14.5px] leading-relaxed text-teal-900/60">
+      <p className="text-gray-600 leading-relaxed max-w-xs">
         {feature.description}
       </p>
 
@@ -236,31 +236,14 @@ export default function Features() {
 
       <div className="relative z-10 mx-auto max-w-[1180px]">
         {/* heading */}
-        <div className="mx-auto mb-8 max-w-[640px] text-center">
-          <span className="mb-5 inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-teal-800">
-            <span className="h-[7px] w-[7px] rounded-full bg-amber-400 shadow-[0_0_0_4px_rgba(251,191,36,0.25)]" />
+        <div className="text-center mb-16">
+          <span className="inline-block text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-amber-600 mb-3">
             Why Laxebute
           </span>
-          <h2 className="mb-4 font-[800] text-[clamp(32px,4.5vw,46px)] leading-[1.12] text-teal-950">
-            Cravings, met with{' '}
-            <span className="relative whitespace-nowrap text-amber-500">
-              speed.
-              <svg
-                viewBox="0 0 200 10"
-                preserveAspectRatio="none"
-                className="absolute -bottom-1.5 left-0 h-2.5 w-full"
-              >
-                <path
-                  d="M2,7 C50,2 150,2 198,7"
-                  stroke="#FBBF24"
-                  strokeWidth="4"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-teal-900 tracking-tight mb-4">
+            Cravings, met with speed.
           </h2>
-          <p className="text-[16.5px] leading-relaxed text-teal-900/70">
+          <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
             Every order runs on one route: your kitchen, your rider, your
             door. Here&apos;s what happens along the way.
           </p>

@@ -2,6 +2,8 @@
 
 import AboutSection from "@/components/modules/home/AboutSection";
 import Banner from "@/components/modules/home/Banner";
+import CtaSection from "@/components/modules/home/Contact";
+import FaqSection from "@/components/modules/home/FaqSection";
 import Features from "@/components/modules/home/Features";
 import HowItWorksSection from "@/components/modules/home/HowItworksSection";
 import LatestMenus from "@/components/modules/home/LatestMenus";
@@ -19,17 +21,23 @@ export default async function Home() {
       <div className="" >
         <AboutSection></AboutSection>
       </div>
-      <div className="py-8 px-1 md:px-16 ">
-        <LatestMenus></LatestMenus>
+         <div>
+         <Features></Features>
       </div>
       <div>
         <HowItWorksSection></HowItWorksSection>
       </div>
-      <div>
-         <Features></Features>
+      <div className="py-8 px-1 md:px-16 ">
+        <LatestMenus></LatestMenus>
       </div>
       <div>
         <OurPromise></OurPromise>
+      </div>
+      <div>
+        <FaqSection></FaqSection>
+      </div>
+      <div>
+        <CtaSection></CtaSection>
       </div>
 
     </div>

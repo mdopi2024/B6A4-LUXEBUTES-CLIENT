@@ -20,8 +20,22 @@ const zodForm = z.object({
     paymentMethod: z.string().min(1, "Payment method is required")
 });
 
-
-
+// Backend response shape এখনও পুরোপুরি নিশ্চিত না হওয়ায়,
+// দুই ধরনের সম্ভাব্য shape-ই handle করা হচ্ছে:
+// 1) { success, message, data: { order, payment, paymentUrl } }
+// 2) { order, payment, paymentUrl }  <-- বর্তমান backend যা রিটার্ন করছে
+type OrderResponse = {
+    success?: boolean;
+    message?: string;
+    data?: {
+        order?: unknown;
+        payment?: unknown;
+        paymentUrl?: string | null;
+    };
+    order?: unknown;
+    payment?: unknown;
+    paymentUrl?: string | null;
+};
 
 const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
     const router = useRouter()
@@ -32,20 +46,51 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
             paymentMethod: ''
         },
         onSubmit: async ({ value }) => {
-            const { data } = await getCardItemById(id)
+            if (!userId) {
+                toast.error("Please log in to place your order.")
+                return
+            }
+
             const toastId = toast.loading("Placing your order...")
+
             try {
-                if (!userId) return toast.error("Please log in to place your order.")
-                const totalAmount = Number(data?.meal?.price) * Number(value?.quantity);
+                const { data: cardData } = await getCardItemById(id)
 
-                const orderData = { ...value, userId, totalAmount, mealId: data?.meal?.id }
-                const order = await createOrder(orderData)
+                if (!cardData?.meal?.id) {
+                    toast.error("Meal information could not be found. Please try again.", { id: toastId })
+                    return
+                }
 
-                // 👇 ডিবাগ করার জন্য - path নিশ্চিত হওয়ার পর এই লাইন সরিয়ে ফেলুন
+                const totalAmount = Number(cardData.meal.price) * Number(value.quantity)
+
+                const orderData = {
+                    ...value,
+                    userId,
+                    totalAmount,
+                    mealId: cardData.meal.id,
+                }
+
+                const order: OrderResponse = await createOrder(orderData)
+
+                // 👇 ডিবাগ করার জন্য - সমস্যা সমাধানের পর এই লাইন সরিয়ে ফেলুন
                 console.log("order response:", JSON.stringify(order, null, 2))
 
-                if (!order?.success) {
-                    return toast.error(order?.message || "Unable to process your order. Please try again.", { id: toastId })
+                // order/payment তৈরি হয়েছে কিনা - দুই ধরনের shape-ই চেক করা হচ্ছে
+                const orderCreated = order?.order ?? order?.data?.order
+                const paymentCreated = order?.payment ?? order?.data?.payment
+
+                // যদি backend explicit success flag পাঠায় সেটাকেও honor করা হচ্ছে,
+                // কিন্তু flag না থাকলে order/payment object থাকলেই success ধরে নেওয়া হচ্ছে
+                const isSuccess =
+                    order?.success === true ||
+                    (order?.success === undefined && !!orderCreated && !!paymentCreated)
+
+                if (!isSuccess) {
+                    toast.error(
+                        order?.message || "Unable to process your order. Please try again.",
+                        { id: toastId }
+                    )
+                    return
                 }
 
                 const isCashOnDelivery =
@@ -60,9 +105,8 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
 
                 // Stripe flow - paymentUrl খুঁজে বের করা হচ্ছে (backend response এর সম্ভাব্য বিভিন্ন structure এর জন্য fallback সহ)
                 const paymentUrl =
-                    order?.data?.paymentUrl ??
                     order?.paymentUrl ??
-                    order?.data?.data?.paymentUrl
+                    order?.data?.paymentUrl
 
                 if (paymentUrl) {
                     toast.success("Redirecting to payment page...", { id: toastId })
@@ -73,6 +117,7 @@ const OrderForm = ({ userId, id }: { userId: string, id: string }) => {
                 // paymentUrl কোথাও না পাওয়া গেলে
                 toast.error("Payment session could not be created. Please try again.", { id: toastId })
             } catch (error) {
+                console.error("Order submission failed:", error)
                 toast.error("Unable to place your order. Please try again.", { id: toastId })
             }
         },

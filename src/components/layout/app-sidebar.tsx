@@ -27,10 +27,6 @@ import { customerRoutes } from "@/routes/customerRoutes"
 export function AppSidebar({ role, ...props }: { role: string } & React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
-  // Track which row is currently hovered, by a unique key (title+url).
-  // Using state instead of Tailwind's group-hover guarantees the icon
-  // color updates correctly no matter what other "group" classes exist
-  // up the tree in the shadcn sidebar primitives.
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null)
 
   let routes: Routes[] = []
@@ -55,6 +51,10 @@ export function AppSidebar({ role, ...props }: { role: string } & React.Componen
     return matches.sort((a, b) => b.length - a.length)[0]
   }, [routes, pathname])
 
+  // Safe display value for the role — avoids crashing on undefined/empty
+  // role during static prerender or before session data is available.
+  const roleLabel = role ? role.charAt(0) + role.slice(1).toLowerCase() : "User"
+
   return (
     <Sidebar {...props} className="border-r border-teal-100">
       {/* Logo/Header Section */}
@@ -68,7 +68,7 @@ export function AppSidebar({ role, ...props }: { role: string } & React.Componen
           <div className="flex flex-col">
             <h2 className="text-xl font-bold text-[#0F766E] leading-tight">LuxeBites</h2>
             <span className="text-[11px] text-gray-500 font-medium tracking-wide">
-              {role.charAt(0) + role.slice(1).toLowerCase()} Panel
+              {roleLabel} Panel
             </span>
           </div>
         </div>
@@ -90,14 +90,8 @@ export function AppSidebar({ role, ...props }: { role: string } & React.Componen
                   const itemKey = `${item.title}-${subItem.url}`
                   const isHovered = hoveredItem === itemKey
 
-                  // lucide-react icons are forwardRef objects, not
-                  // plain functions — `typeof icon === "function"`
-                  // is false for them, so just check it's set.
                   const Icon = subItem.icon || Circle
 
-                  // Explicit color resolution (no reliance on CSS
-                  // pseudo-classes at all): active = black,
-                  // hovered = white, default = teal.
                   const iconColor = isActive
                     ? "#000000"
                     : isHovered

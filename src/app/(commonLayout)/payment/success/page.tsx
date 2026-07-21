@@ -1,21 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-/**
- * Luxibute — Payment Success
- * app/payment/success/page.tsx
- *
- * Palette: teal-800 (#115e59) primary, amber-400 (#FBBF24) secondary, white tertiary.
- * Signature element: a wax-seal that "stamps" itself onto the page on load —
- * a nod to a boutique's signed receipt, rather than a generic checkmark-in-a-circle.
- *
- * This page shows success directly (no backend verification call).
- * If you later add real verification, gate the JSX below behind that result.
- */
-
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
     const searchParams = useSearchParams();
     const sessionId = searchParams.get("session_id");
 
@@ -282,5 +271,13 @@ export default function PaymentSuccessPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function PaymentSuccessPage() {
+    return (
+        <Suspense fallback={null}>
+            <PaymentSuccessContent />
+        </Suspense>
     );
 }

@@ -52,7 +52,7 @@ const SignupPage = () => {
         }
     })
     return (
-        <div className="flex justify-center items-center pt-14">
+        <div className="flex justify-center items-center py-14">
             <Card className="w-full max-w-sm mx-auto  ">
                 <CardHeader>
                     <CardTitle>Create an account</CardTitle>

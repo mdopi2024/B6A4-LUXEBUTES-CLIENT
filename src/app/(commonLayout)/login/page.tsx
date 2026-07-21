@@ -17,7 +17,10 @@ const zodForm = z.object({
     email: z.email()
 })
 
-
+const ADMIN_CREDENTIALS = {
+    email: "admin@gmail.com",
+    password: "12345678",
+}
 
 const LoginPage = () => {
     const router = useRouter()
@@ -49,8 +52,14 @@ const LoginPage = () => {
             onSubmit: zodForm
         }
     })
+
+    const fillAdminCredentials = () => {
+        form.setFieldValue('email', ADMIN_CREDENTIALS.email)
+        form.setFieldValue('password', ADMIN_CREDENTIALS.password)
+    }
+
     return (
-        <div className="flex justify-center items-center pt-14">
+        <div className="flex justify-center items-center py-14">
             <Card className="w-full max-w-sm mx-auto  ">
                 <CardHeader>
                     <CardTitle>Login to you account</CardTitle>
@@ -118,6 +127,14 @@ const LoginPage = () => {
                     <Button type="submit" form="form" className="w-full bg-[#FBBF24] hover:bg-[#FBBF24]  text-black">
                         Login
                     </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full"
+                        onClick={fillAdminCredentials}
+                    >
+                        Fill Admin Credentials
+                    </Button>
                     <div>
                         Don't have an account <Link className="text-[#FBBF24] font-semibold" href="/signup">Register</Link>
                     </div>
@@ -129,7 +146,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
-
-
